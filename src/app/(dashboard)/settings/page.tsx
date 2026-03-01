@@ -1,10 +1,18 @@
-export default function SettingsPage() {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-      <p className="mt-2 text-sm text-gray-500">
-        Restaurant settings will be built in Phase 2.
-      </p>
-    </div>
-  );
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { tenants } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { SettingsForm } from "@/components/dashboard/SettingsForm";
+
+export default async function SettingsPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const tenant = await db.query.tenants.findFirst({
+    where: eq(tenants.ownerId, session.user.id),
+  });
+  if (!tenant) redirect("/onboarding");
+
+  return <SettingsForm tenant={tenant} />;
 }
