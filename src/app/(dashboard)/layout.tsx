@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { tenants } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 const navItems = [
   { href: "/menu", label: "Menu", icon: "M4 6h16M4 12h16M4 18h16" },
@@ -19,6 +22,15 @@ export default async function DashboardLayout({
 
   if (!session?.user) {
     redirect("/login");
+  }
+
+  // Check if user has a tenant, redirect to onboarding if not
+  const tenant = await db.query.tenants.findFirst({
+    where: eq(tenants.ownerId, session.user.id!),
+  });
+
+  if (!tenant) {
+    redirect("/onboarding");
   }
 
   return (

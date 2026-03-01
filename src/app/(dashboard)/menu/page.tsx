@@ -1,28 +1,39 @@
-export default function MenuPage() {
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { tenants, menus, categories, items } from "@/lib/db/schema";
+import { eq, asc } from "drizzle-orm";
+import { MenuBuilder } from "@/components/dashboard/MenuBuilder";
+
+export default async function MenuPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const tenant = await db.query.tenants.findFirst({
+    where: eq(tenants.ownerId, session.user.id),
+  });
+  if (!tenant) redirect("/onboarding");
+
+  const menuList = await db.query.menus.findMany({
+    where: eq(menus.tenantId, tenant.id),
+    orderBy: [asc(menus.sortOrder)],
+  });
+
+  const categoryList = await db.query.categories.findMany({
+    where: eq(categories.tenantId, tenant.id),
+    orderBy: [asc(categories.sortOrder)],
+  });
+
+  const itemList = await db.query.items.findMany({
+    where: eq(items.tenantId, tenant.id),
+    orderBy: [asc(items.sortOrder)],
+  });
+
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Menu Builder</h1>
-      </div>
-      <div className="mt-8 rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
-        <svg
-          className="mx-auto h-12 w-12 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={1}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
-        </svg>
-        <h3 className="mt-2 text-sm font-semibold text-gray-900">No menus yet</h3>
-        <p className="mt-1 text-sm text-gray-500">
-          Get started by creating your first menu.
-        </p>
-      </div>
-    </div>
+    <MenuBuilder
+      initialMenus={menuList}
+      initialCategories={categoryList}
+      initialItems={itemList}
+    />
   );
 }
