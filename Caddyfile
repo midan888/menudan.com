@@ -1,4 +1,21 @@
-# Development - plain HTTP
-:80 {
+# Main domain
+{$APP_DOMAIN:localhost} {
     reverse_proxy app:3000
+}
+
+# Custom domains — on-demand TLS
+# Caddy will automatically provision Let's Encrypt certificates
+# when a verified custom domain points to this server.
+:443 {
+    tls {
+        on_demand
+    }
+    reverse_proxy app:3000
+}
+
+# On-demand TLS validation — only provision certs for verified domains
+{
+    on_demand_tls {
+        ask http://app:3000/api/domains/verify
+    }
 }

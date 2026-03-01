@@ -3,6 +3,8 @@ import { db } from '@/lib/db';
 import { menus } from '@/lib/db/schema';
 import { eq, asc } from 'drizzle-orm';
 import { requireTenant } from '@/lib/tenant';
+import { PLAN_LIMITS } from '@/lib/constants';
+import type { PlanType } from '@/lib/constants';
 
 export async function GET() {
   try {
@@ -26,6 +28,18 @@ export async function POST(request: Request) {
   try {
     const tenant = await requireTenant();
     const { name } = await request.json();
+
+    // Plan enforcement: check menu limit
+    const limits = PLAN_LIMITS[tenant.plan as PlanType] || PLAN_LIMITS.free;
+    const existing = await db.query.menus.findMany({
+      where: eq(menus.tenantId, tenant.id),
+    });
+    if (existing.length >= limits.maxMenus) {
+      return NextResponse.json(
+        { error: `Your ${tenant.plan} plan allows up to ${limits.maxMenus} menu(s). Upgrade for more.` },
+        { status: 403 }
+      );
+    }
 
     const [menu] = await db
       .insert(menus)

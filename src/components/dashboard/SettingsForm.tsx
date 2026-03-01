@@ -359,7 +359,177 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
             </a>
           </div>
         </section>
+        {/* Custom Domain */}
+        <CustomDomainSection
+          customDomain={tenant.customDomain}
+          domainVerified={tenant.domainVerified ?? false}
+          plan={tenant.plan}
+        />
       </div>
     </div>
+  );
+}
+
+function CustomDomainSection({
+  customDomain: initialDomain,
+  domainVerified: initialVerified,
+  plan,
+}: {
+  customDomain: string | null;
+  domainVerified: boolean;
+  plan: string;
+}) {
+  const [domain, setDomain] = useState(initialDomain || "");
+  const [verified, setVerified] = useState(initialVerified);
+  const [saving, setSaving] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [error, setError] = useState("");
+  const [hasDomain, setHasDomain] = useState(!!initialDomain);
+
+  const isPaidPlan = plan === "pro" || plan === "business";
+
+  async function handleSaveDomain() {
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch("/api/domains", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ domain }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to save domain");
+      }
+      const data = await res.json();
+      setVerified(data.verified);
+      setHasDomain(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleVerify() {
+    setVerifying(true);
+    setError("");
+    try {
+      const res = await fetch("/api/domains/verify", { method: "POST" });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Verification failed");
+      }
+      const data = await res.json();
+      setVerified(data.verified);
+      if (!data.verified && data.message) {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Verification failed");
+    } finally {
+      setVerifying(false);
+    }
+  }
+
+  async function handleRemove() {
+    setSaving(true);
+    setError("");
+    try {
+      const res = await fetch("/api/domains", { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to remove domain");
+      setDomain("");
+      setVerified(false);
+      setHasDomain(false);
+    } catch {
+      setError("Failed to remove domain");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <section>
+      <h2 className="text-sm font-semibold text-gray-900">Custom Domain</h2>
+      {!isPaidPlan ? (
+        <div className="mt-2 rounded-lg bg-gray-50 p-4">
+          <p className="text-sm text-gray-500">
+            Custom domains are available on Pro and Business plans.
+          </p>
+          <a
+            href="/billing"
+            className="mt-2 inline-block text-xs font-medium text-gray-900 hover:underline"
+          >
+            Upgrade your plan
+          </a>
+        </div>
+      ) : (
+        <div className="mt-3 space-y-3">
+          {error && (
+            <p className="text-xs text-red-600">{error}</p>
+          )}
+
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              placeholder="menu.myrestaurant.com"
+              className="block flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
+            />
+            {!hasDomain || domain !== initialDomain ? (
+              <button
+                onClick={handleSaveDomain}
+                disabled={saving || !domain.trim()}
+                className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+              >
+                {saving ? "Saving..." : "Save"}
+              </button>
+            ) : !verified ? (
+              <button
+                onClick={handleVerify}
+                disabled={verifying}
+                className="rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+              >
+                {verifying ? "Verifying..." : "Verify"}
+              </button>
+            ) : null}
+            {hasDomain && (
+              <button
+                onClick={handleRemove}
+                disabled={saving}
+                className="text-xs text-red-400 hover:text-red-600"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+
+          {hasDomain && verified && (
+            <div className="flex items-center gap-2 text-xs text-green-600">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Domain verified and active
+            </div>
+          )}
+
+          {hasDomain && !verified && (
+            <div className="rounded-lg bg-amber-50 p-3 text-xs text-amber-700">
+              <p className="font-medium">DNS Setup Required</p>
+              <p className="mt-1">
+                Add a CNAME record pointing <code className="rounded bg-amber-100 px-1">{domain}</code> to{" "}
+                <code className="rounded bg-amber-100 px-1">
+                  {typeof window !== "undefined" ? window.location.hostname : "yourdomain.com"}
+                </code>
+              </p>
+              <p className="mt-1 text-amber-500">
+                DNS changes can take up to 48 hours to propagate.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
   );
 }

@@ -4,6 +4,11 @@ import sharp from 'sharp';
 import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
+import { db } from '@/lib/db';
+import { items } from '@/lib/db/schema';
+import { eq, isNotNull } from 'drizzle-orm';
+import { PLAN_LIMITS } from '@/lib/constants';
+import type { PlanType } from '@/lib/constants';
 
 const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
 
@@ -17,6 +22,25 @@ export async function POST(request: Request) {
 
     if (!file) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+    }
+
+    // Plan enforcement: check item image limit
+    if (type === 'items') {
+      const limits = PLAN_LIMITS[tenant.plan as PlanType] || PLAN_LIMITS.free;
+      if (limits.maxItemImages !== Infinity) {
+        const imageCount = await db
+          .select()
+          .from(items)
+          .where(eq(items.tenantId, tenant.id))
+          .then((rows) => rows.filter((r) => r.imageUrl).length);
+
+        if (imageCount >= limits.maxItemImages) {
+          return NextResponse.json(
+            { error: `Your ${tenant.plan} plan allows up to ${limits.maxItemImages} item images. Upgrade for more.` },
+            { status: 403 }
+          );
+        }
+      }
     }
 
     // Validate file size (5MB max)

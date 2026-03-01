@@ -1,10 +1,23 @@
-export default function BillingPage() {
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { db } from "@/lib/db";
+import { tenants } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { BillingView } from "@/components/dashboard/BillingView";
+
+export default async function BillingPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const tenant = await db.query.tenants.findFirst({
+    where: eq(tenants.ownerId, session.user.id),
+  });
+  if (!tenant) redirect("/onboarding");
+
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-900">Billing</h1>
-      <p className="mt-2 text-sm text-gray-500">
-        Billing and subscription management will be built in Phase 5.
-      </p>
-    </div>
+    <BillingView
+      currentPlan={tenant.plan}
+      hasStripeCustomer={!!tenant.stripeCustomerId}
+    />
   );
 }
