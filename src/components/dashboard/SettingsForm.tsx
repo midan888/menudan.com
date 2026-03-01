@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import type { Tenant } from "@/types";
-import { THEMES } from "@/lib/constants";
+import { THEMES, SUPPORTED_LANGUAGES } from "@/lib/constants";
 
 interface SettingsFormProps {
   tenant: Tenant;
@@ -22,6 +22,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
   const [phone, setPhone] = useState(tenant.phone || "");
   const [themeId, setThemeId] = useState(tenant.themeId);
   const [accentColor, setAccentColor] = useState(tenant.accentColor || "#111111");
+  const [defaultLanguage, setDefaultLanguage] = useState(tenant.defaultLanguage || "en");
   const [logoUrl, setLogoUrl] = useState(tenant.logoUrl || "");
   const [coverImageUrl, setCoverImageUrl] = useState(tenant.coverImageUrl || "");
   const [saving, setSaving] = useState(false);
@@ -63,6 +64,7 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
           phone: phone.trim() || null,
           themeId,
           accentColor,
+          defaultLanguage,
           logoUrl: logoUrl || null,
           coverImageUrl: coverImageUrl || null,
         }),
@@ -319,6 +321,25 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
               maxLength={7}
             />
           </div>
+        </section>
+
+        {/* Default Language */}
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">Default Language</h2>
+          <p className="mt-1 text-xs text-gray-500">
+            The language your menu content is written in. Manage translations in the Languages page.
+          </p>
+          <select
+            value={defaultLanguage}
+            onChange={(e) => setDefaultLanguage(e.target.value)}
+            className="mt-3 rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          >
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name} ({lang.nativeName})
+              </option>
+            ))}
+          </select>
         </section>
 
         {/* Public Menu Link */}

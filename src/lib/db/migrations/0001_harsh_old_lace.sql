@@ -1,0 +1,1 @@
+ALTER TABLE "tenants" ADD COLUMN "ai_uploads_used" integer DEFAULT 0 NOT NULL;

@@ -105,6 +105,9 @@ export const tenants = pgTable(
     stripeSubscriptionId: varchar('stripe_subscription_id', { length: 255 }),
     trialEndsAt: timestamp('trial_ends_at', { mode: 'date' }),
 
+    // Usage tracking
+    aiUploadsUsed: integer('ai_uploads_used').notNull().default(0),
+
     createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { mode: 'date' }).defaultNow().notNull(),
   },

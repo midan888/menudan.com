@@ -8,6 +8,13 @@
       "when": 1772402827667,
       "tag": "0000_brown_thunderbolt_ross",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772405257801,
+      "tag": "0001_harsh_old_lace",
+      "breakpoints": true
     }
   ]
 }
