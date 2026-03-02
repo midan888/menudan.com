@@ -68,7 +68,7 @@ jobs:
             sleep 5
 
             # Run database migrations
-            docker compose exec -T app npx drizzle-kit migrate
+            docker compose exec -T app node ./node_modules/drizzle-kit/bin.cjs migrate
 
             # Reload Caddy config (zero-downtime)
             docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile
