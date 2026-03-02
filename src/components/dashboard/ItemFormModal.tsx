@@ -2,19 +2,30 @@
 
 import { useState, useRef } from "react";
 import type { Item } from "@/types";
-import { BADGES, ALLERGENS } from "@/lib/constants";
+import { BADGES, ALLERGENS, SUPPORTED_CURRENCIES } from "@/lib/constants";
 
 interface ItemFormModalProps {
   item: Item | null;
   onSave: (data: Partial<Item>) => Promise<void>;
   onClose: () => void;
+  enabledCurrencies?: string[];
+  defaultCurrency?: string;
 }
 
-export function ItemFormModal({ item, onSave, onClose }: ItemFormModalProps) {
+export function ItemFormModal({ item, onSave, onClose, enabledCurrencies, defaultCurrency }: ItemFormModalProps) {
   const [name, setName] = useState(item?.name || "");
   const [description, setDescription] = useState(item?.description || "");
-  const [price, setPrice] = useState(item ? String(item.price) : "");
-  const [currency, setCurrency] = useState(item?.currency || "USD");
+  const currencyOptions = enabledCurrencies && enabledCurrencies.length > 0 ? enabledCurrencies : ["USD"];
+  const primaryCurrency = defaultCurrency || currencyOptions[0];
+
+  // Initialize prices from item.prices (multi-currency map) or fall back to single price+currency
+  const [prices, setPrices] = useState<Record<string, string>>(() => {
+    const existingPrices = (item?.prices as Record<string, string>) || {};
+    if (Object.keys(existingPrices).length > 0) return existingPrices;
+    if (item?.price) return { [item.currency || primaryCurrency]: String(item.price) };
+    return {};
+  });
+
   const [isAvailable, setIsAvailable] = useState(item?.isAvailable ?? true);
   const [badges, setBadges] = useState<string[]>(
     (item?.badges as string[]) || []
@@ -63,9 +74,28 @@ export function ItemFormModal({ item, onSave, onClose }: ItemFormModalProps) {
       setError("Name is required");
       return;
     }
-    if (!price || isNaN(Number(price)) || Number(price) < 0) {
-      setError("Valid price is required");
+
+    // At least the primary currency must have a valid price
+    const primaryPrice = prices[primaryCurrency];
+    if (!primaryPrice || isNaN(Number(primaryPrice)) || Number(primaryPrice) < 0) {
+      setError(`Price in ${primaryCurrency} is required`);
       return;
+    }
+
+    // Validate all entered prices
+    for (const [code, val] of Object.entries(prices)) {
+      if (val && (isNaN(Number(val)) || Number(val) < 0)) {
+        setError(`Invalid price for ${code}`);
+        return;
+      }
+    }
+
+    // Clean prices: remove empty entries
+    const cleanPrices: Record<string, string> = {};
+    for (const [code, val] of Object.entries(prices)) {
+      if (val && val.trim() !== "") {
+        cleanPrices[code] = val;
+      }
     }
 
     setSaving(true);
@@ -73,8 +103,9 @@ export function ItemFormModal({ item, onSave, onClose }: ItemFormModalProps) {
       await onSave({
         name: name.trim(),
         description: description.trim() || null,
-        price: price,
-        currency,
+        price: primaryPrice,
+        currency: primaryCurrency,
+        prices: cleanPrices,
         isAvailable,
         badges,
         allergens,
@@ -215,42 +246,40 @@ export function ItemFormModal({ item, onSave, onClose }: ItemFormModalProps) {
             </p>
           </div>
 
-          {/* Price + Currency */}
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <label htmlFor="item-price" className="block text-sm font-medium text-gray-700">
-                Price <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="item-price"
-                type="number"
-                required
-                min="0"
-                step="0.01"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
-                placeholder="12.50"
-              />
-            </div>
-            <div className="w-24">
-              <label htmlFor="item-currency" className="block text-sm font-medium text-gray-700">
-                Currency
-              </label>
-              <select
-                id="item-currency"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
-              >
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="AMD">AMD</option>
-                <option value="RUB">RUB</option>
-                <option value="CAD">CAD</option>
-                <option value="AUD">AUD</option>
-              </select>
+          {/* Prices */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              {currencyOptions.length > 1 ? "Prices" : "Price"} <span className="text-red-500">*</span>
+            </label>
+            <div className="mt-1 space-y-2">
+              {currencyOptions.map((code) => {
+                const cur = SUPPORTED_CURRENCIES.find((c) => c.code === code);
+                const isPrimary = code === primaryCurrency;
+                return (
+                  <div key={code} className="flex items-center gap-2">
+                    <span className="w-16 shrink-0 text-sm font-medium text-gray-500">
+                      {cur?.symbol || code} {code}
+                    </span>
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      required={isPrimary}
+                      value={prices[code] || ""}
+                      onChange={(e) =>
+                        setPrices((prev) => ({ ...prev, [code]: e.target.value }))
+                      }
+                      className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
+                      placeholder={isPrimary ? "12.50" : "Optional"}
+                    />
+                    {isPrimary && (
+                      <span className="shrink-0 text-[10px] font-medium uppercase tracking-wide text-gray-400">
+                        default
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 

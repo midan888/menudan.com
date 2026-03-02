@@ -94,6 +94,8 @@ export const tenants = pgTable(
     accentColor: varchar('accent_color', { length: 7 }).default('#111111'),
     defaultLanguage: varchar('default_language', { length: 5 }).default('en'),
     enabledLanguages: jsonb('enabled_languages').default(['en']),
+    defaultCurrency: varchar('default_currency', { length: 3 }).notNull().default('USD'),
+    enabledCurrencies: jsonb('enabled_currencies').default(['USD']),
 
     // Custom domain
     customDomain: varchar('custom_domain', { length: 255 }),
@@ -177,6 +179,7 @@ export const items = pgTable(
     currency: varchar('currency', { length: 3 }).notNull().default('USD'),
     imageUrl: text('image_url'),
     isAvailable: boolean('is_available').notNull().default(true),
+    prices: jsonb('prices').default({}),
     badges: jsonb('badges').default([]),
     allergens: jsonb('allergens').default([]),
     sortOrder: integer('sort_order').notNull().default(0),

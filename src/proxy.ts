@@ -7,7 +7,7 @@ const protectedPaths = ['/menu', '/qr', '/settings', '/billing', '/upload', '/on
 // Routes that are only accessible when NOT authenticated
 const authPaths = ['/login', '/register'];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check for custom domain routing

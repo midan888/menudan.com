@@ -1,5 +1,5 @@
 import type { ThemeProps } from "./types";
-import { t } from "./types";
+import { t, formatPrices } from "./types";
 
 export function DarkTheme({
   tenant,
@@ -171,7 +171,7 @@ export function DarkTheme({
                               {t(translations, "item", item.id, "name", item.name, currentLanguage)}
                             </h3>
                             <span className="price shrink-0 text-sm" style={{ color: accent, textShadow: `0 0 8px ${accent}40` }}>
-                              {item.currency} {Number(item.price).toFixed(2)}
+                              {formatPrices(item)}
                             </span>
                           </div>
                           {item.description && (

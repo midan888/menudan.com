@@ -33,6 +33,8 @@ export async function PATCH(request: Request) {
       "accentColor",
       "defaultLanguage",
       "enabledLanguages",
+      "defaultCurrency",
+      "enabledCurrencies",
     ];
 
     for (const key of editableKeys) {

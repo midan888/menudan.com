@@ -55,11 +55,11 @@ Key relationships: User -> Tenant (1:1 owner), Tenant -> Menus -> Categories -> 
 - `GET /api/health` — Health check
 - `POST /api/onboarding` — Onboarding completion
 
-## Auth & Middleware
+## Auth & Proxy
 
 - Providers: Google OAuth + email/password credentials
 - JWT strategy (not database sessions)
-- Middleware (`src/middleware.ts`) handles: custom domain routing (rewrites to `/r/[slug]`), auth redirects for protected paths, redirect authenticated users away from login/register
+- Proxy (`src/proxy.ts`) handles: custom domain routing (rewrites to `/r/[slug]`), auth redirects for protected paths, redirect authenticated users away from login/register
 - Protected paths: `/menu`, `/qr`, `/settings`, `/billing`, `/upload`, `/onboarding`, `/languages`
 - Session token cookies: `authjs.session-token` or `__Secure-authjs.session-token`
 

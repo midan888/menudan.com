@@ -60,6 +60,7 @@ export async function POST(request: Request) {
         description: body.description || null,
         price: String(body.price),
         currency: body.currency || 'USD',
+        prices: body.prices || {},
         imageUrl: body.imageUrl || null,
         isAvailable: body.isAvailable ?? true,
         badges: body.badges || [],

@@ -79,6 +79,31 @@ export const ALLERGENS = [
   'shellfish',
 ] as const;
 
+export const SUPPORTED_CURRENCIES = [
+  { code: 'USD', name: 'US Dollar', symbol: '$' },
+  { code: 'EUR', name: 'Euro', symbol: '€' },
+  { code: 'GBP', name: 'British Pound', symbol: '£' },
+  { code: 'AMD', name: 'Armenian Dram', symbol: '֏' },
+  { code: 'RUB', name: 'Russian Ruble', symbol: '₽' },
+  { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$' },
+  { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+  { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+  { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+  { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+  { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+  { code: 'TRY', name: 'Turkish Lira', symbol: '₺' },
+  { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
+  { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+  { code: 'SEK', name: 'Swedish Krona', symbol: 'kr' },
+  { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr' },
+  { code: 'DKK', name: 'Danish Krone', symbol: 'kr' },
+  { code: 'PLN', name: 'Polish Zloty', symbol: 'zł' },
+  { code: 'THB', name: 'Thai Baht', symbol: '฿' },
+  { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+  { code: 'GEL', name: 'Georgian Lari', symbol: '₾' },
+  { code: 'MXN', name: 'Mexican Peso', symbol: 'MX$' },
+] as const;
+
 export const THEMES = [
   { id: 'classic', name: 'Classic', description: 'Editorial, warm, sophisticated' },
   { id: 'modern', name: 'Modern', description: 'Clean, contemporary, minimal' },

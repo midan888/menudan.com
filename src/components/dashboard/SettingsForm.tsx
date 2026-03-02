@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import type { Tenant } from "@/types";
-import { THEMES, SUPPORTED_LANGUAGES } from "@/lib/constants";
+import { THEMES, SUPPORTED_LANGUAGES, SUPPORTED_CURRENCIES } from "@/lib/constants";
 
 interface SettingsFormProps {
   tenant: Tenant;
@@ -23,6 +23,10 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
   const [themeId, setThemeId] = useState(tenant.themeId);
   const [accentColor, setAccentColor] = useState(tenant.accentColor || "#111111");
   const [defaultLanguage, setDefaultLanguage] = useState(tenant.defaultLanguage || "en");
+  const [defaultCurrency, setDefaultCurrency] = useState(tenant.defaultCurrency || "USD");
+  const [enabledCurrencies, setEnabledCurrencies] = useState<string[]>(
+    (tenant.enabledCurrencies as string[]) || ["USD"]
+  );
   const [logoUrl, setLogoUrl] = useState(tenant.logoUrl || "");
   const [coverImageUrl, setCoverImageUrl] = useState(tenant.coverImageUrl || "");
   const [saving, setSaving] = useState(false);
@@ -65,6 +69,8 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
           themeId,
           accentColor,
           defaultLanguage,
+          defaultCurrency,
+          enabledCurrencies,
           logoUrl: logoUrl || null,
           coverImageUrl: coverImageUrl || null,
         }),
@@ -340,6 +346,64 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
               </option>
             ))}
           </select>
+        </section>
+
+        {/* Currencies */}
+        <section>
+          <h2 className="text-sm font-semibold text-gray-900">Currencies</h2>
+          <p className="mt-1 text-xs text-gray-500">
+            Enable currencies you accept. The default currency is pre-selected when adding new items.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {SUPPORTED_CURRENCIES.map((cur) => {
+              const isEnabled = enabledCurrencies.includes(cur.code);
+              return (
+                <button
+                  key={cur.code}
+                  type="button"
+                  onClick={() => {
+                    if (isEnabled) {
+                      if (enabledCurrencies.length <= 1) return;
+                      const updated = enabledCurrencies.filter((c) => c !== cur.code);
+                      setEnabledCurrencies(updated);
+                      if (defaultCurrency === cur.code) {
+                        setDefaultCurrency(updated[0]);
+                      }
+                    } else {
+                      setEnabledCurrencies([...enabledCurrencies, cur.code]);
+                    }
+                  }}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                    isEnabled
+                      ? "bg-gray-900 text-white"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {cur.symbol} {cur.code}
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-4">
+            <label htmlFor="s-default-currency" className="block text-sm font-medium text-gray-700">
+              Default Currency
+            </label>
+            <select
+              id="s-default-currency"
+              value={defaultCurrency}
+              onChange={(e) => setDefaultCurrency(e.target.value)}
+              className="mt-1 rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            >
+              {enabledCurrencies.map((code) => {
+                const cur = SUPPORTED_CURRENCIES.find((c) => c.code === code);
+                return (
+                  <option key={code} value={code}>
+                    {cur ? `${cur.symbol} ${cur.name} (${code})` : code}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
         </section>
 
         {/* Public Menu Link */}

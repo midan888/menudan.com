@@ -1,5 +1,5 @@
 import type { ThemeProps } from "./types";
-import { t } from "./types";
+import { t, formatPrices } from "./types";
 
 export function ClassicTheme({
   tenant,
@@ -183,7 +183,7 @@ export function ClassicTheme({
                               {t(translations, "item", item.id, "name", item.name, currentLanguage)}
                             </h3>
                             <span className="shrink-0 rounded-full px-2.5 py-0.5 text-sm font-bold" style={{ color: "var(--accent)", background: "color-mix(in srgb, var(--accent) 10%, transparent)" }}>
-                              {item.currency} {Number(item.price).toFixed(2)}
+                              {formatPrices(item)}
                             </span>
                           </div>
                           {item.description && (

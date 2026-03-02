@@ -22,6 +22,7 @@ export async function PATCH(
     if (body.isAvailable !== undefined) updateData.isAvailable = body.isAvailable;
     if (body.badges !== undefined) updateData.badges = body.badges;
     if (body.allergens !== undefined) updateData.allergens = body.allergens;
+    if (body.prices !== undefined) updateData.prices = body.prices;
     if (body.sortOrder !== undefined) updateData.sortOrder = body.sortOrder;
     updateData.updatedAt = new Date();
 

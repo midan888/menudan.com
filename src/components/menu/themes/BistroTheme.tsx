@@ -1,5 +1,5 @@
 import type { ThemeProps } from "./types";
-import { t } from "./types";
+import { t, formatPrices } from "./types";
 
 export function BistroTheme({
   tenant,
@@ -187,7 +187,7 @@ export function BistroTheme({
                         </span>
                         <span className="bistro-dots" />
                         <span className="text-base font-semibold whitespace-nowrap" style={{ color: accent }}>
-                          {item.currency} {Number(item.price).toFixed(2)}
+                          {formatPrices(item)}
                         </span>
                       </div>
                       {item.description && (

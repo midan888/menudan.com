@@ -5,6 +5,8 @@ import { tenants, menus, categories, items } from "@/lib/db/schema";
 import { eq, asc } from "drizzle-orm";
 import { MenuBuilder } from "@/components/dashboard/MenuBuilder";
 
+export const dynamic = "force-dynamic";
+
 export default async function MenuPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
@@ -34,6 +36,8 @@ export default async function MenuPage() {
       initialMenus={menuList}
       initialCategories={categoryList}
       initialItems={itemList}
+      enabledCurrencies={(tenant.enabledCurrencies as string[]) || ["USD"]}
+      defaultCurrency={tenant.defaultCurrency || "USD"}
     />
   );
 }

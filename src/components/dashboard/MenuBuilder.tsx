@@ -25,12 +25,16 @@ interface MenuBuilderProps {
   initialMenus: Menu[];
   initialCategories: Category[];
   initialItems: Item[];
+  enabledCurrencies?: string[];
+  defaultCurrency?: string;
 }
 
 export function MenuBuilder({
   initialMenus,
   initialCategories,
   initialItems,
+  enabledCurrencies,
+  defaultCurrency,
 }: MenuBuilderProps) {
   const [menuList, setMenuList] = useState(initialMenus);
   const [selectedMenuId, setSelectedMenuId] = useState(
@@ -395,6 +399,8 @@ export function MenuBuilder({
             setEditingItem(null);
             setAddingToCategoryId(null);
           }}
+          enabledCurrencies={enabledCurrencies}
+          defaultCurrency={defaultCurrency}
         />
       )}
     </div>
