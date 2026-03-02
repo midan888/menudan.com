@@ -15,7 +15,7 @@ export function MenuFooter({ plan }: MenuFooterProps) {
         href="/"
         className="text-xs opacity-30 transition-opacity hover:opacity-50"
       >
-        Powered by MenuForYou
+        Powered by qarta.dev
       </a>
     </footer>
   );

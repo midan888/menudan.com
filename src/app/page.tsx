@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "MenuForYou";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
 
 const features = [
   {

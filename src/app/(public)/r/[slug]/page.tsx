@@ -49,7 +49,7 @@ export async function generateMetadata({
       title,
       description,
       url,
-      siteName: "MenuForYou",
+      siteName: "qarta.dev",
       type: "website",
       ...(tenant.logoUrl ? { images: [{ url: tenant.logoUrl }] } : {}),
     },

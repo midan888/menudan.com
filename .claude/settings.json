@@ -5,7 +5,7 @@
       "Bash(set +a)",
       "Bash(npx drizzle-kit migrate)",
       "Bash(psql \"$DATABASE_URL\" -c \"SELECT * FROM drizzle.__drizzle_migrations ORDER BY created_at;\")",
-      "Bash(ls -la /Users/mikayeldanielyan/Projects/menuforyou/src/lib/db/migrations/*.sql)"
+      "Bash(ls -la /Users/mikayeldanielyan/Projects/qarta.dev/src/lib/db/migrations/*.sql)"
     ]
   }
 }

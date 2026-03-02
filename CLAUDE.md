@@ -1,4 +1,4 @@
-# CLAUDE.md — MenuForYou
+# CLAUDE.md — qarta.dev
 
 ## Project Overview
 

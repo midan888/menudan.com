@@ -11,8 +11,8 @@ function getResend(): Resend | null {
 }
 
 const FROM =
-  process.env.EMAIL_FROM || "MenuForYou <noreply@menuforyou.com>";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "MenuForYou";
+  process.env.EMAIL_FROM || "qarta.dev <noreply@qarta.dev>";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
 
 export async function sendWelcomeEmail(email: string, name?: string) {
   const resend = getResend();
