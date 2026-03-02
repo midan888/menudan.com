@@ -19,3 +19,8 @@
         ask http://app:3000/api/domains/verify
     }
 }
+
+:80 {
+    reverse_proxy app:3000
+}
+
