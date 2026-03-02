@@ -5,14 +5,14 @@
     }
 }
 
-# Main domain
+# Main domain — Cloudflare Origin Certificate
 {$APP_DOMAIN:localhost} {
+    tls /etc/caddy/certs/origin.pem /etc/caddy/certs/origin-key.pem
     reverse_proxy app:3000
 }
 
-# Custom domains — on-demand TLS
-# Caddy will automatically provision Let's Encrypt certificates
-# when a verified custom domain points to this server.
+# Custom domains — Let's Encrypt via on-demand TLS
+# Restaurant custom domains point directly to this server (not through Cloudflare)
 :443 {
     tls {
         on_demand
