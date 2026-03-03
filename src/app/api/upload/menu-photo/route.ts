@@ -9,6 +9,7 @@ const ALLOWED_TYPES = [
   "image/png",
   "image/webp",
   "image/gif",
+  "application/pdf",
 ] as const;
 
 type AllowedType = (typeof ALLOWED_TYPES)[number];
@@ -52,7 +53,7 @@ export async function POST(request: Request) {
 
     if (!ALLOWED_TYPES.includes(file.type as AllowedType)) {
       return NextResponse.json(
-        { error: "Unsupported file type. Use JPEG, PNG, or WebP." },
+        { error: "Unsupported file type. Use JPEG, PNG, WebP, or PDF." },
         { status: 400 }
       );
     }

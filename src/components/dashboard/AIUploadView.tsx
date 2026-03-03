@@ -42,7 +42,7 @@ export function AIUploadView({ menus, plan, aiUploadsUsed }: AIUploadViewProps) 
 
   async function handleFileSelect(file: File) {
     setError("");
-    setPreview(URL.createObjectURL(file));
+    setPreview(file.type === "application/pdf" ? null : URL.createObjectURL(file));
     setStep("extracting");
 
     try {
@@ -167,7 +167,7 @@ export function AIUploadView({ menus, plan, aiUploadsUsed }: AIUploadViewProps) 
     <div>
       <h1 className="text-2xl font-bold text-gray-900">AI Menu Upload</h1>
       <p className="mt-2 text-sm text-gray-500">
-        Upload a photo of your paper menu and our AI will extract all items automatically.
+        Upload a photo or PDF of your menu and our AI will extract all items automatically.
       </p>
 
       {error && (
@@ -205,15 +205,15 @@ export function AIUploadView({ menus, plan, aiUploadsUsed }: AIUploadViewProps) 
                 />
               </svg>
               <p className="mt-4 text-sm font-medium text-gray-900">
-                Click to upload a menu photo
+                Click to upload a menu photo or PDF
               </p>
               <p className="mt-1 text-xs text-gray-500">
-                JPEG, PNG, or WebP up to 10MB
+                JPEG, PNG, WebP, or PDF up to 10MB
               </p>
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/jpeg,image/png,image/webp"
+                accept="image/jpeg,image/png,image/webp,application/pdf"
                 className="hidden"
                 onChange={(e) => {
                   const file = e.target.files?.[0];

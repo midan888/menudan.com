@@ -21,7 +21,7 @@ export interface ExtractionResult {
   notes: string;
 }
 
-const EXTRACTION_PROMPT = `You are a menu extraction assistant. Analyze this restaurant menu image and extract ALL menu items.
+const EXTRACTION_PROMPT = `You are a menu extraction assistant. Analyze this restaurant menu (image or PDF) and extract ALL menu items.
 
 Return ONLY valid JSON in this exact format:
 {
@@ -51,10 +51,31 @@ Rules:
 - If no clear categories exist, group logically (Starters, Mains, Desserts, Drinks)
 - Return ONLY the JSON, no other text`;
 
+type ImageMimeType = "image/jpeg" | "image/png" | "image/webp" | "image/gif";
+
 export async function extractMenuFromImage(
-  imageBase64: string,
-  mimeType: "image/jpeg" | "image/png" | "image/webp" | "image/gif"
+  base64Data: string,
+  mimeType: ImageMimeType | "application/pdf"
 ): Promise<ExtractionResult> {
+  const contentBlock: Anthropic.Messages.ContentBlockParam =
+    mimeType === "application/pdf"
+      ? {
+          type: "document",
+          source: {
+            type: "base64",
+            media_type: "application/pdf",
+            data: base64Data,
+          },
+        }
+      : {
+          type: "image",
+          source: {
+            type: "base64",
+            media_type: mimeType,
+            data: base64Data,
+          },
+        };
+
   const response = await client.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 4096,
@@ -62,14 +83,7 @@ export async function extractMenuFromImage(
       {
         role: "user",
         content: [
-          {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: mimeType,
-              data: imageBase64,
-            },
-          },
+          contentBlock,
           {
             type: "text",
             text: EXTRACTION_PROMPT,
