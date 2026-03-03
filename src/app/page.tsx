@@ -229,7 +229,8 @@ export default function HomePage() {
           </div>
 
           {/* Theme preview mockup */}
-          <div className="mx-auto mt-16 max-w-3xl">
+          <div id="themes" className="mx-auto mt-16 max-w-3xl">
+            <p className="mb-3 text-center text-sm text-gray-500">Click a theme to preview</p>
             <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-2xl shadow-indigo-500/10">
               <div className="flex items-center gap-1.5 border-b border-gray-100 bg-linear-to-r from-gray-50 to-gray-100 px-4 py-3">
                 <div className="h-2.5 w-2.5 rounded-full bg-red-300" />
@@ -239,7 +240,7 @@ export default function HomePage() {
               </div>
               <div className="grid grid-cols-2 gap-0 sm:grid-cols-4">
                 {/* Classic theme preview */}
-                <div className="border-r border-b border-gray-100 p-4 transition-colors hover:bg-gray-50/50 sm:border-b-0">
+                <Link href="/demo/classic" className="block border-r border-b border-gray-100 p-4 transition-all hover:bg-indigo-50/50 hover:scale-[1.02] sm:border-b-0">
                   <div
                     className="rounded-lg p-3"
                     style={{ backgroundColor: "#FDFBF7" }}
@@ -254,9 +255,9 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
                 {/* Modern theme preview */}
-                <div className="border-b border-gray-100 p-4 transition-colors hover:bg-gray-50/50 sm:border-r sm:border-b-0">
+                <Link href="/demo/modern" className="block border-b border-gray-100 p-4 transition-all hover:bg-indigo-50/50 hover:scale-[1.02] sm:border-r sm:border-b-0">
                   <div className="rounded-lg bg-white p-3 shadow-sm">
                     <div className="text-center">
                       <div className="text-[10px] font-bold text-gray-900">Modern</div>
@@ -268,9 +269,9 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
                 {/* Dark theme preview */}
-                <div className="border-r border-gray-100 p-4 transition-colors hover:bg-gray-50/50">
+                <Link href="/demo/dark" className="block border-r border-gray-100 p-4 transition-all hover:bg-indigo-50/50 hover:scale-[1.02]">
                   <div
                     className="rounded-lg p-3"
                     style={{ backgroundColor: "#0A0A0A" }}
@@ -285,9 +286,9 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
                 {/* Bistro theme preview */}
-                <div className="p-4 transition-colors hover:bg-gray-50/50">
+                <Link href="/demo/bistro" className="block p-4 transition-all hover:bg-indigo-50/50 hover:scale-[1.02]">
                   <div
                     className="rounded-lg p-3"
                     style={{ backgroundColor: "#F5EDE3" }}
@@ -302,7 +303,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
