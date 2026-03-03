@@ -3,13 +3,19 @@ import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { users, verificationTokens } from '@/lib/db/schema';
 
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
+function redirect(path: string) {
+  return NextResponse.redirect(`${APP_URL}${path}`);
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const token = searchParams.get('token');
   const email = searchParams.get('email');
 
   if (!token || !email) {
-    return NextResponse.redirect(new URL('/login?error=invalid-link', request.url));
+    return redirect('/login?error=invalid-link');
   }
 
   const record = await db.query.verificationTokens.findFirst({
@@ -20,7 +26,7 @@ export async function GET(request: NextRequest) {
   });
 
   if (!record) {
-    return NextResponse.redirect(new URL('/login?error=invalid-link', request.url));
+    return redirect('/login?error=invalid-link');
   }
 
   if (record.expires < new Date()) {
@@ -30,7 +36,7 @@ export async function GET(request: NextRequest) {
         eq(verificationTokens.token, token)
       )
     );
-    return NextResponse.redirect(new URL('/login?error=link-expired', request.url));
+    return redirect('/login?error=link-expired');
   }
 
   // Mark email as verified
@@ -46,5 +52,5 @@ export async function GET(request: NextRequest) {
     )
   );
 
-  return NextResponse.redirect(new URL('/login?verified=1', request.url));
+  return redirect('/login?verified=1');
 }
