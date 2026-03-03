@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
 
@@ -100,10 +101,13 @@ export function ModernTheme({
       {/* Cover image */}
       {tenant.coverImageUrl && (
         <div className="relative h-52 overflow-hidden">
-          <img
+          <Image
             src={tenant.coverImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
+            alt={`${tenant.name} cover`}
+            fill
+            sizes="480px"
+            className="object-cover"
+            priority
           />
           <div
             className="absolute inset-0"
@@ -118,9 +122,11 @@ export function ModernTheme({
       <header className="relative flex items-center gap-4 px-6 pt-8 pb-6">
         {tenant.logoUrl ? (
           <div className="h-16 w-16 overflow-hidden rounded-2xl p-0.5 shadow-lg" style={{ background: `linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 40%, white))` }}>
-            <img
+            <Image
               src={tenant.logoUrl}
               alt={tenant.name}
+              width={64}
+              height={64}
               className="h-full w-full rounded-[14px] object-cover"
             />
           </div>
@@ -188,11 +194,12 @@ export function ModernTheme({
                     <div key={item.id} className="modern-item-card">
                       <div className="flex gap-3">
                         {item.imageUrl && (
-                          <img
+                          <Image
                             src={item.imageUrl}
                             alt={item.name}
+                            width={80}
+                            height={80}
                             className="h-20 w-20 shrink-0 rounded-xl object-cover shadow-sm"
-                            loading="lazy"
                           />
                         )}
                         <div className="flex-1 min-w-0">

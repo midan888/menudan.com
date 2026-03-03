@@ -1,6 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+export const metadata: Metadata = {
+  title: `${APP_NAME} — Digital Menus for Restaurants`,
+  description:
+    "Put your restaurant menu online in under 5 minutes. Upload a photo, pick a theme, get a QR code. No technical skills required.",
+  alternates: {
+    canonical: APP_URL,
+  },
+  openGraph: {
+    url: APP_URL,
+  },
+};
 
 const features = [
   {
@@ -140,11 +154,11 @@ export default function HomePage() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-indigo-100/50 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <h1 className="text-xl font-bold text-gray-900">
+          <span className="text-xl font-bold text-gray-900">
             <span className="bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
               {APP_NAME}
             </span>
-          </h1>
+          </span>
           <nav className="hidden items-center gap-6 sm:flex">
             <a
               href="#features"
@@ -188,6 +202,8 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Main content */}
+      <main>
       {/* Hero */}
       <section className="relative overflow-hidden pb-20 pt-20 sm:pt-28">
         {/* Background decoration */}
@@ -204,13 +220,13 @@ export default function HomePage() {
             </span>
             No credit card required
           </div>
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
             Your restaurant menu,
             <br />
             <span className="bg-linear-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">
               online in 5 minutes
             </span>
-          </h2>
+          </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600">
             Upload a photo of your paper menu — AI extracts items automatically.
             Choose a beautiful theme, get a QR code, and you&apos;re live. No
@@ -376,6 +392,7 @@ export default function HomePage() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                     strokeWidth={1.5}
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -454,6 +471,7 @@ export default function HomePage() {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth={2.5}
+                        aria-hidden="true"
                       >
                         <path
                           strokeLinecap="round"
@@ -519,6 +537,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="border-t border-gray-100 bg-gray-50 py-12">

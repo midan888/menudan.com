@@ -35,28 +35,66 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const tenant = await getTenantBySlug(slug);
-  if (!tenant) return {};
+
+  if (!tenant) {
+    return {
+      title: "Menu not found",
+      robots: { index: false },
+    };
+  }
+
+  const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
 
   const title = tenant.name;
   const description =
     tenant.description || `View the menu for ${tenant.name}`;
-  const url = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/r/${slug}`;
+
+  // Use custom domain if set, else app URL
+  const canonicalBase = tenant.customDomain
+    ? `https://${tenant.customDomain}`
+    : APP_URL;
+  const canonicalUrl = `${canonicalBase}/r/${slug}`;
+
+  const ogImage = tenant.logoUrl
+    ? { url: tenant.logoUrl, width: 400, height: 400, alt: tenant.name }
+    : tenant.coverImageUrl
+    ? { url: tenant.coverImageUrl, width: 1200, height: 630, alt: tenant.name }
+    : { url: `${APP_URL}/og-image.png`, width: 1200, height: 630, alt: `${tenant.name} — ${APP_NAME}` };
+
+  // Build hreflang alternates for enabled languages
+  const enabledLanguages = (tenant.enabledLanguages as string[]) || ["en"];
+  const languageAlternates =
+    enabledLanguages.length > 1
+      ? enabledLanguages.reduce<Record<string, string>>((acc, lang) => {
+          acc[lang] =
+            lang === "en"
+              ? canonicalUrl
+              : `${APP_URL}/r/${slug}?lang=${lang}`;
+          return acc;
+        }, {})
+      : undefined;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: languageAlternates,
+    },
     openGraph: {
       title,
       description,
-      url,
-      siteName: "qarta.dev",
+      url: canonicalUrl,
+      siteName: APP_NAME,
       type: "website",
-      ...(tenant.logoUrl ? { images: [{ url: tenant.logoUrl }] } : {}),
+      images: [ogImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [ogImage.url],
     },
   };
 }
@@ -141,6 +179,11 @@ export default async function PublicMenuPage({
   }[tenant.themeId] || ModernTheme;
 
   // Structured data (JSON-LD) for Restaurant schema
+  const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const canonicalBase = tenant.customDomain
+    ? `https://${tenant.customDomain}`
+    : APP_URL;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -148,8 +191,8 @@ export default async function PublicMenuPage({
     ...(tenant.description ? { description: tenant.description } : {}),
     ...(tenant.address ? { address: { "@type": "PostalAddress", streetAddress: tenant.address } } : {}),
     ...(tenant.phone ? { telephone: tenant.phone } : {}),
-    ...(tenant.logoUrl ? { image: tenant.logoUrl } : {}),
-    url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/r/${slug}`,
+    ...(tenant.logoUrl ? { image: tenant.logoUrl, logo: tenant.logoUrl } : {}),
+    url: `${canonicalBase}/r/${slug}`,
     hasMenu: {
       "@type": "Menu",
       hasMenuSection: categoryList

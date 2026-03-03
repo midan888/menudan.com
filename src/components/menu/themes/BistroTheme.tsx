@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
 
@@ -95,10 +96,13 @@ export function BistroTheme({
       {/* Cover image or ornamental top border */}
       {tenant.coverImageUrl ? (
         <div className="relative h-52 overflow-hidden">
-          <img
+          <Image
             src={tenant.coverImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
+            alt={`${tenant.name} cover`}
+            fill
+            sizes="480px"
+            className="object-cover"
+            priority
           />
           <div
             className="absolute inset-0"
@@ -122,9 +126,11 @@ export function BistroTheme({
       <header className="relative px-6 pt-4 pb-4 text-center">
         {tenant.logoUrl && (
           <div className="mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full p-0.5" style={{ background: `linear-gradient(135deg, ${accent}, color-mix(in srgb, ${accent} 40%, #F5EDE3))` }}>
-            <img
+            <Image
               src={tenant.logoUrl}
               alt={tenant.name}
+              width={80}
+              height={80}
               className="h-full w-full rounded-full object-cover"
             />
           </div>

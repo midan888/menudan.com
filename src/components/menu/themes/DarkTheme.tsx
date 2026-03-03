@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
 
@@ -98,10 +99,13 @@ export function DarkTheme({
       {/* Cover image */}
       {tenant.coverImageUrl ? (
         <div className="relative h-52 overflow-hidden">
-          <img
+          <Image
             src={tenant.coverImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
+            alt={`${tenant.name} cover`}
+            fill
+            sizes="480px"
+            className="object-cover"
+            priority
           />
           <div
             className="absolute inset-0"
@@ -119,9 +123,11 @@ export function DarkTheme({
       <header className="relative px-6 pt-8 pb-6 text-center">
         {tenant.logoUrl && (
           <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full p-0.5" style={{ background: `linear-gradient(135deg, ${accent}, color-mix(in srgb, ${accent} 30%, black))` }}>
-            <img
+            <Image
               src={tenant.logoUrl}
               alt={tenant.name}
+              width={80}
+              height={80}
               className="h-full w-full rounded-full object-cover"
             />
           </div>
@@ -189,11 +195,12 @@ export function DarkTheme({
                     <div key={item.id} className="dark-item-card">
                       <div className="flex gap-4">
                         {item.imageUrl && (
-                          <img
+                          <Image
                             src={item.imageUrl}
                             alt={item.name}
+                            width={80}
+                            height={80}
                             className="h-20 w-20 shrink-0 rounded-xl object-cover"
-                            loading="lazy"
                             style={{ boxShadow: `0 2px 12px ${accent}15` }}
                           />
                         )}

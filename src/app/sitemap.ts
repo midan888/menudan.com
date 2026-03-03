@@ -7,25 +7,50 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-  // Static pages
+  // Static pages — use a fixed date; update when content actually changes
+  const SITE_UPDATED = new Date("2025-01-01");
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${baseUrl}/login`,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "monthly",
       priority: 0.3,
     },
     {
       url: `${baseUrl}/register`,
-      lastModified: new Date(),
+      lastModified: SITE_UPDATED,
       changeFrequency: "monthly",
       priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/demo/classic`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/demo/modern`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/demo/dark`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/demo/bistro`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
   ];
 

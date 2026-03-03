@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
 
@@ -86,10 +87,13 @@ export function ClassicTheme({
       {/* Cover image with gradient overlay */}
       {tenant.coverImageUrl && (
         <div className="relative h-52 overflow-hidden">
-          <img
+          <Image
             src={tenant.coverImageUrl}
-            alt=""
-            className="h-full w-full object-cover"
+            alt={`${tenant.name} cover`}
+            fill
+            sizes="480px"
+            className="object-cover"
+            priority
           />
           <div
             className="absolute inset-0"
@@ -104,9 +108,11 @@ export function ClassicTheme({
       <header className="relative px-6 pt-8 pb-4 text-center">
         {tenant.logoUrl && (
           <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full p-0.5" style={{ background: `linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 50%, #F7F0E6))` }}>
-            <img
+            <Image
               src={tenant.logoUrl}
               alt={tenant.name}
+              width={80}
+              height={80}
               className="h-full w-full rounded-full object-cover"
             />
           </div>
@@ -172,11 +178,12 @@ export function ClassicTheme({
                     <div key={item.id} className="classic-item-card">
                       <div className="flex gap-4">
                         {item.imageUrl && (
-                          <img
+                          <Image
                             src={item.imageUrl}
                             alt={item.name}
+                            width={80}
+                            height={80}
                             className="h-20 w-20 shrink-0 rounded-lg object-cover shadow-sm"
-                            loading="lazy"
                           />
                         )}
                         <div className="flex-1 min-w-0">
