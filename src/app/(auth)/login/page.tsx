@@ -8,6 +8,10 @@ import { useSearchParams } from "next/navigation";
 function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/menu";
+  const verified = searchParams.get("verified") === "1";
+  const reset = searchParams.get("reset") === "1";
+  const linkError = searchParams.get("error");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -39,6 +43,30 @@ function LoginForm() {
       <p className="mt-2 text-sm text-gray-600">
         Sign in to manage your restaurant menu
       </p>
+
+      {verified && (
+        <div className="mt-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
+          Email verified! You can now sign in.
+        </div>
+      )}
+
+      {reset && (
+        <div className="mt-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
+          Password updated successfully. Sign in with your new password.
+        </div>
+      )}
+
+      {linkError === "invalid-link" && (
+        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+          That verification link is invalid. Please request a new one.
+        </div>
+      )}
+
+      {linkError === "link-expired" && (
+        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+          That verification link has expired. Please register again.
+        </div>
+      )}
 
       <button
         onClick={() => signIn("google", { callbackUrl })}
@@ -97,12 +125,20 @@ function LoginForm() {
         </div>
 
         <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            <Link
+              href="/forgot-password"
+              className="text-xs text-gray-500 hover:text-gray-900"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <input
             id="password"
             type="password"

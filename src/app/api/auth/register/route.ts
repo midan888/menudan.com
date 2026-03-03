@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import { eq } from 'drizzle-orm';
+import crypto from 'crypto';
+import { eq, and } from 'drizzle-orm';
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema';
-import { sendWelcomeEmail } from '@/lib/email';
+import { users, verificationTokens } from '@/lib/db/schema';
+import { sendVerificationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
@@ -54,8 +55,25 @@ export async function POST(request: Request) {
       passwordHash,
     });
 
-    // Send welcome email (fire-and-forget)
-    sendWelcomeEmail(email, name).catch(() => {});
+    // Create email verification token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    // Remove any existing verification tokens for this email
+    await db.delete(verificationTokens).where(
+      and(
+        eq(verificationTokens.identifier, email),
+      )
+    );
+
+    await db.insert(verificationTokens).values({
+      identifier: email,
+      token,
+      expires,
+    });
+
+    // Send verification email (fire-and-forget)
+    sendVerificationEmail(email, token, name).catch(() => {});
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {

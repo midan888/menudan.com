@@ -105,20 +105,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
-        // Fetch role from DB on sign-in
+        // Fetch role and emailVerified from DB on sign-in
         const dbUser = await db.query.users.findFirst({
           where: eq(users.id, user.id!),
-          columns: { role: true },
+          columns: { role: true, emailVerified: true },
         });
         token.role = dbUser?.role ?? 'user';
+        token.emailVerified = dbUser?.emailVerified ?? null;
       }
-      // Refresh role on session update
+      // Refresh role and emailVerified on session update
       if (trigger === 'update' && token.id) {
         const dbUser = await db.query.users.findFirst({
           where: eq(users.id, token.id as string),
-          columns: { role: true },
+          columns: { role: true, emailVerified: true },
         });
         token.role = dbUser?.role ?? 'user';
+        token.emailVerified = dbUser?.emailVerified ?? null;
       }
       return token;
     },
@@ -126,6 +128,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (session.user && token.id) {
         session.user.id = token.id as string;
         session.user.role = (token.role as string) ?? 'user';
+        session.user.emailVerified = (token.emailVerified as Date | null) ?? null;
       }
       return session;
     },

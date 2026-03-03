@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react"; // still used for Google OAuth
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -30,17 +30,8 @@ export default function RegisterPage() {
         return;
       }
 
-      // Auto sign-in after registration
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-        callbackUrl: "/onboarding",
-      });
-
-      if (result?.url) {
-        window.location.href = result.url;
-      }
+      // Redirect to check-your-email page
+      window.location.href = `/verify-email?email=${encodeURIComponent(email)}`;
     } catch {
       setError("Something went wrong");
       setLoading(false);

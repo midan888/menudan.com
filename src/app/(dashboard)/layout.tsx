@@ -6,6 +6,7 @@ import { tenants } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { MobileNav } from "@/components/dashboard/MobileNav";
 import { SignOutButton } from "@/components/dashboard/SignOutButton";
+import { EmailVerificationBanner } from "@/components/dashboard/EmailVerificationBanner";
 
 const navItems = [
   { href: "/menu", label: "Menu", icon: "M4 6h16M4 12h16M4 18h16" },
@@ -119,6 +120,11 @@ export default async function DashboardLayout({
             <MobileNav items={navItems} />
           </div>
         </header>
+
+        {/* Email verification banner */}
+        {!session.user.emailVerified && session.user.email && (
+          <EmailVerificationBanner email={session.user.email} />
+        )}
 
         {/* Main content */}
         <main className="flex-1 p-4 sm:p-6">{children}</main>
