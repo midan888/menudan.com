@@ -115,8 +115,10 @@ export function ClassicTheme({
         {tenant.description && (
           <p className="mt-2 text-sm opacity-60">{tenant.description}</p>
         )}
-        {tenant.address && (
-          <p className="mt-1 text-xs opacity-40">{tenant.address}</p>
+        {(tenant.address || tenant.phone) && (
+          <p className="mt-1 text-xs opacity-40">
+            {[tenant.address, tenant.phone].filter(Boolean).join(' · ')}
+          </p>
         )}
         {/* Decorative flourish */}
         <div className="mt-4 flex items-center justify-center gap-2">

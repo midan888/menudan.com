@@ -130,6 +130,11 @@ export function DarkTheme({
         {tenant.description && (
           <p className="mt-2 text-sm text-white/40">{tenant.description}</p>
         )}
+        {(tenant.address || tenant.phone) && (
+          <p className="mt-1 text-xs text-white/30">
+            {[tenant.address, tenant.phone].filter(Boolean).join(' · ')}
+          </p>
+        )}
         {/* Decorative accent line */}
         <div className="mt-4 flex items-center justify-center gap-3">
           <div className="h-px w-16" style={{ background: `linear-gradient(to right, transparent, ${accent}60)` }} />

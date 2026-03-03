@@ -135,8 +135,10 @@ export function BistroTheme({
         {tenant.description && (
           <p className="mt-2 text-sm opacity-55">{tenant.description}</p>
         )}
-        {tenant.address && (
-          <p className="mt-1 text-xs opacity-35">{tenant.address}</p>
+        {(tenant.address || tenant.phone) && (
+          <p className="mt-1 text-xs opacity-35">
+            {[tenant.address, tenant.phone].filter(Boolean).join(' · ')}
+          </p>
         )}
       </header>
 

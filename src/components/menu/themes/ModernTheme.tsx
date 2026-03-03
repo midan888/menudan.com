@@ -137,6 +137,11 @@ export function ModernTheme({
           {tenant.description && (
             <p className="text-sm text-gray-500">{tenant.description}</p>
           )}
+          {(tenant.address || tenant.phone) && (
+            <p className="text-xs text-gray-400">
+              {[tenant.address, tenant.phone].filter(Boolean).join(' · ')}
+            </p>
+          )}
         </div>
       </header>
 
