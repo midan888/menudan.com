@@ -8,9 +8,6 @@
 # Main domain — Cloudflare Origin Certificate
 {$APP_DOMAIN:localhost} {
     tls /etc/caddy/certs/origin.pem /etc/caddy/certs/origin-key.pem
-    basicauth * {
-        admin $2a$14$e9ekYHOCjp36iivqWqqxWOJVg46aTYCMnd5E4ZpmzSSl7H65EqvtC
-    }
     reverse_proxy app:3000
 }
 
@@ -20,15 +17,5 @@
     tls {
         on_demand
     }
-    basicauth * {
-        admin $2a$14$e9ekYHOCjp36iivqWqqxWOJVg46aTYCMnd5E4ZpmzSSl7H65EqvtC
-    }
     reverse_proxy app:3000
 }
-
-# :80 {
-#    basicauth * {
-#        admin $2a$14$e9ekYHOCjp36iivqWqqxWOJVg46aTYCMnd5E4ZpmzSSl7H65EqvtC
-#    }
-#   reverse_proxy app:3000
-# }
