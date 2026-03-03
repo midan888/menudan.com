@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireTenant } from "@/lib/tenant";
 import { db } from "@/lib/db";
-import { menus, categories, items } from "@/lib/db/schema";
+import { menus, categories, items, tenants } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 interface SaveItem {
@@ -88,6 +88,16 @@ export async function POST(request: Request) {
         });
         totalItems++;
       }
+    }
+
+    // Enable the detected currency on the tenant if not already enabled
+    const currency = body.currency || "USD";
+    const enabled = (tenant.enabledCurrencies as string[]) || ["USD"];
+    if (!enabled.includes(currency)) {
+      await db
+        .update(tenants)
+        .set({ enabledCurrencies: [...enabled, currency] })
+        .where(eq(tenants.id, tenant.id));
     }
 
     return NextResponse.json({
