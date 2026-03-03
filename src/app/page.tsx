@@ -75,6 +75,7 @@ const plans = [
     cta: "Get Started Free",
     href: "/register",
     highlighted: false,
+    comingSoon: false,
   },
   {
     name: "Pro",
@@ -88,9 +89,10 @@ const plans = [
       "Custom domain",
       "No watermark",
     ],
-    cta: "Start with Pro",
-    href: "/register",
+    cta: "Coming Soon",
+    href: "",
     highlighted: true,
+    comingSoon: true,
   },
   {
     name: "Business",
@@ -104,9 +106,10 @@ const plans = [
       "Custom domain",
       "Priority support",
     ],
-    cta: "Go Business",
-    href: "/register",
+    cta: "Coming Soon",
+    href: "",
     highlighted: false,
+    comingSoon: true,
   },
 ];
 
@@ -420,9 +423,9 @@ export default function HomePage() {
                     : "border-gray-200 hover:shadow-lg"
                 }`}
               >
-                {plan.highlighted && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-linear-to-r from-indigo-600 to-violet-600 px-4 py-1 text-xs font-medium text-white shadow-md shadow-indigo-500/25">
-                    Most Popular
+                {plan.comingSoon && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-linear-to-r from-amber-500 to-orange-500 px-4 py-1 text-xs font-medium text-white shadow-md shadow-amber-500/25">
+                    Coming Soon
                   </span>
                 )}
                 <div>
@@ -462,16 +465,24 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href={plan.href}
-                  className={`mt-8 block w-full rounded-lg py-3 text-center text-sm font-medium transition-all ${
-                    plan.highlighted
-                      ? "bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
-                      : "border border-gray-200 text-gray-700 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
-                  }`}
-                >
-                  {plan.cta}
-                </Link>
+                {plan.comingSoon ? (
+                  <span
+                    className="mt-8 block w-full cursor-not-allowed rounded-lg border border-gray-200 bg-gray-50 py-3 text-center text-sm font-medium text-gray-400"
+                  >
+                    {plan.cta}
+                  </span>
+                ) : (
+                  <Link
+                    href={plan.href}
+                    className={`mt-8 block w-full rounded-lg py-3 text-center text-sm font-medium transition-all ${
+                      plan.highlighted
+                        ? "bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
+                        : "border border-gray-200 text-gray-700 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+                    }`}
+                  >
+                    {plan.cta}
+                  </Link>
+                )}
               </div>
             ))}
           </div>
