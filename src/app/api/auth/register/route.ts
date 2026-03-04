@@ -6,6 +6,7 @@ import { db } from '@/lib/db';
 import { users, verificationTokens } from '@/lib/db/schema';
 import { sendVerificationEmail } from '@/lib/email';
 import { rateLimit } from '@/lib/rate-limit';
+import { emitHook } from '@/lib/hooks';
 
 export async function POST(request: Request) {
   try {
@@ -74,6 +75,9 @@ export async function POST(request: Request) {
 
     // Send verification email (fire-and-forget)
     sendVerificationEmail(email, token, name).catch(() => {});
+
+    // Notify via Telegram (fire-and-forget)
+    emitHook('user.registered', { name, email }).catch(() => {});
 
     return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
