@@ -12,6 +12,7 @@ export const RESERVED_SLUGS = [
   'support',
   'pricing',
   'about',
+  'privacy',
 ];
 
 export const PLAN_LIMITS = {

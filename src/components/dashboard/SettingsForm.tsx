@@ -414,6 +414,9 @@ export function SettingsForm({ tenant }: SettingsFormProps) {
           domainVerified={tenant.domainVerified ?? false}
           plan={tenant.plan}
         />
+
+        {/* Danger Zone */}
+        <DeleteAccountSection />
       </div>
     </div>
   );
@@ -827,5 +830,95 @@ function CustomDomainSection({
         </div>
       )}
     </section>
+  );
+}
+
+function DeleteAccountSection() {
+  const [showModal, setShowModal] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleDelete() {
+    if (confirmText !== "DELETE") return;
+    setDeleting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/account/delete", { method: "POST" });
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error || "Failed to delete account");
+        setDeleting(false);
+        return;
+      }
+      window.location.href = "/";
+    } catch {
+      setError("Something went wrong");
+      setDeleting(false);
+    }
+  }
+
+  return (
+    <>
+      <section className="rounded-lg border border-red-200 bg-red-50 p-4">
+        <h2 className="text-sm font-semibold text-red-900">Danger Zone</h2>
+        <p className="mt-1 text-xs text-red-700">
+          Permanently delete your account, restaurant, and all menu data. This action cannot be undone.
+        </p>
+        <button
+          onClick={() => setShowModal(true)}
+          className="mt-3 rounded-lg border border-red-300 bg-white px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+        >
+          Delete Account
+        </button>
+      </section>
+
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-gray-900">Delete Account</h3>
+            <p className="mt-2 text-sm text-gray-600">
+              This will permanently delete your account, restaurant profile, all menus, items, images, translations, and analytics data.
+            </p>
+            <p className="mt-3 text-sm font-medium text-gray-900">
+              Type <code className="rounded bg-red-100 px-1.5 py-0.5 text-xs font-bold text-red-700">DELETE</code> to confirm:
+            </p>
+            <input
+              type="text"
+              value={confirmText}
+              onChange={(e) => setConfirmText(e.target.value)}
+              placeholder="DELETE"
+              className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+              autoFocus
+            />
+
+            {error && (
+              <p className="mt-2 text-sm text-red-600">{error}</p>
+            )}
+
+            <div className="mt-4 flex justify-end gap-3">
+              <button
+                onClick={() => {
+                  setShowModal(false);
+                  setConfirmText("");
+                  setError("");
+                }}
+                className="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={confirmText !== "DELETE" || deleting}
+                className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleting ? "Deleting..." : "Delete Everything"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/ui/Toaster";
+import { CookieBanner } from "@/components/ui/CookieBanner";
 import "./globals.css";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
@@ -56,7 +57,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <ToastProvider>{children}</ToastProvider>
+        <ToastProvider>
+          {children}
+          <CookieBanner />
+        </ToastProvider>
       </body>
     </html>
   );

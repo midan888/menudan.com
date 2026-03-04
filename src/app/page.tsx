@@ -549,9 +549,12 @@ export default function HomePage() {
                 {APP_NAME}
               </span>
             </p>
-            <p className="text-sm text-gray-500">
-              &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.
-            </p>
+            <div className="flex items-center gap-4 text-sm text-gray-500">
+              <Link href="/privacy" className="hover:text-gray-700">
+                Privacy Policy
+              </Link>
+              <span>&copy; {new Date().getFullYear()} {APP_NAME}</span>
+            </div>
           </div>
         </div>
       </footer>
