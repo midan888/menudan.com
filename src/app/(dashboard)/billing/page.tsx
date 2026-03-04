@@ -15,9 +15,6 @@ export default async function BillingPage() {
   if (!tenant) redirect("/onboarding");
 
   return (
-    <BillingView
-      currentPlan={tenant.plan}
-      hasStripeCustomer={!!tenant.stripeCustomerId}
-    />
+    <BillingView currentPlan={tenant.plan} />
   );
 }

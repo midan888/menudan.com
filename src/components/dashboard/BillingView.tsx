@@ -1,12 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import { PLAN_LIMITS } from "@/lib/constants";
 import type { PlanType } from "@/lib/constants";
 
 interface BillingViewProps {
   currentPlan: string;
-  hasStripeCustomer: boolean;
 }
 
 const PLANS = [
@@ -37,7 +33,6 @@ const PLANS = [
       "Custom domain",
       "No watermark",
     ],
-    popular: true,
   },
   {
     id: "business" as PlanType,
@@ -56,92 +51,17 @@ const PLANS = [
   },
 ];
 
-export function BillingView({
-  currentPlan,
-  hasStripeCustomer,
-}: BillingViewProps) {
-  const [loading, setLoading] = useState<string | null>(null);
-  const [error, setError] = useState("");
-
-  async function handleUpgrade(plan: "pro" | "business") {
-    setLoading(plan);
-    setError("");
-
-    try {
-      const res = await fetch("/api/stripe/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to start checkout");
-      }
-
-      const { url } = await res.json();
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Checkout failed");
-    } finally {
-      setLoading(null);
-    }
-  }
-
-  async function handleManage() {
-    setLoading("manage");
-    setError("");
-
-    try {
-      const res = await fetch("/api/stripe/portal", {
-        method: "POST",
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to open portal");
-      }
-
-      const { url } = await res.json();
-      if (url) {
-        window.location.href = url;
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Portal failed");
-    } finally {
-      setLoading(null);
-    }
-  }
-
+export function BillingView({ currentPlan }: BillingViewProps) {
   const limits = PLAN_LIMITS[currentPlan as PlanType] || PLAN_LIMITS.free;
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Billing</h1>
-          <p className="mt-2 text-sm text-gray-500">
-            Manage your subscription and plan.
-          </p>
-        </div>
-        {hasStripeCustomer && (
-          <button
-            onClick={handleManage}
-            disabled={loading === "manage"}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-          >
-            {loading === "manage" ? "Opening..." : "Manage Subscription"}
-          </button>
-        )}
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">Billing</h1>
+        <p className="mt-2 text-sm text-gray-500">
+          Manage your subscription and plan.
+        </p>
       </div>
-
-      {error && (
-        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          {error}
-        </div>
-      )}
 
       {/* Current plan badge */}
       <div className="mt-6 flex items-center gap-3 rounded-lg bg-gray-50 p-4">
@@ -166,27 +86,16 @@ export function BillingView({
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {PLANS.map((plan) => {
           const isCurrent = plan.id === currentPlan;
-          const isDowngrade =
-            (currentPlan === "business" && plan.id !== "business") ||
-            (currentPlan === "pro" && plan.id === "free");
 
           return (
             <div
               key={plan.id}
               className={`relative rounded-xl border-2 p-6 ${
-                plan.popular
-                  ? "border-gray-900"
-                  : isCurrent
+                isCurrent
                   ? "border-gray-400"
                   : "border-gray-200"
               }`}
             >
-              {plan.popular && (
-                <span className="absolute -top-3 left-4 rounded-full bg-gray-900 px-3 py-0.5 text-xs font-medium text-white">
-                  Most Popular
-                </span>
-              )}
-
               <div className="text-sm font-medium text-gray-500">
                 {plan.name}
               </div>
@@ -226,24 +135,10 @@ export function BillingView({
                   <div className="w-full rounded-lg bg-gray-100 py-2.5 text-center text-sm font-medium text-gray-500">
                     Current Plan
                   </div>
-                ) : isDowngrade ? (
-                  <button
-                    onClick={handleManage}
-                    disabled={!!loading}
-                    className="w-full rounded-lg border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-                  >
-                    Manage Plan
-                  </button>
                 ) : (
-                  <button
-                    onClick={() =>
-                      handleUpgrade(plan.id as "pro" | "business")
-                    }
-                    disabled={!!loading || plan.id === "free"}
-                    className="w-full rounded-lg bg-gray-900 py-2.5 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
-                  >
-                    {loading === plan.id ? "Redirecting..." : `Upgrade to ${plan.name}`}
-                  </button>
+                  <div className="w-full rounded-lg bg-gray-100 py-2.5 text-center text-sm font-medium text-gray-400">
+                    Coming Soon
+                  </div>
                 )}
               </div>
             </div>
