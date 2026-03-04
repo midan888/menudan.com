@@ -16,7 +16,7 @@ export const RESERVED_SLUGS = [
 
 export const PLAN_LIMITS = {
   free: {
-    maxMenus: 1,
+    maxMenus: 3,
     maxItemImages: 20,
     maxAiUploads: 1,
     customDomain: false,
