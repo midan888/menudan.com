@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     template: `%s — ${APP_NAME}`,
   },
   description:
-    "Put your restaurant menu online in under 5 minutes. Get a QR code for table placement.",
+    "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
   openGraph: {
     type: "website",
     siteName: APP_NAME,
     title: `${APP_NAME} — Digital Menus for Restaurants`,
     description:
-      "Put your restaurant menu online in under 5 minutes. Get a QR code for table placement.",
+      "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
     url: APP_URL,
     images: [
       {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${APP_NAME} — Digital Menus for Restaurants`,
     description:
-      "Put your restaurant menu online in under 5 minutes. Get a QR code for table placement.",
+      "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
     images: ["/og-image.png"],
   },
   icons: {

@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${APP_NAME} — Digital Menus for Restaurants`,
     short_name: APP_NAME,
     description:
-      "Put your restaurant menu online in under 5 minutes. Get a QR code for table placement.",
+      "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
@@ -15,7 +15,7 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       {
         src: "/icon-192.png",
-        sizes: "192x192",
+          sizes: "192x192",
         type: "image/png",
       },
       {
