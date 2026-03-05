@@ -21,14 +21,20 @@ Restaurant QR Menu SaaS. Full spec lives in [agent.md](agent.md) — read it for
 ## Key Directories
 
 - `src/app/` — Next.js App Router pages and API routes
-- `src/app/(auth)/` — Login and register pages
+- `src/app/(auth)/` — Login, register, forgot-password, reset-password, verify-email pages
 - `src/app/(dashboard)/` — Authenticated dashboard (menu builder, QR, settings, billing, languages, upload)
+- `src/app/(admin)/` — Admin panel (`/admin/users`, `/admin/menus`) — role-protected
 - `src/app/(public)/r/[slug]/` — Public menu page (customer-facing)
 - `src/app/onboarding/` — Post-registration onboarding flow
+- `src/app/blog/` — Blog listing and article pages (static content via `_data/articles.ts`)
+- `src/app/demo/[theme]/` — Public theme demo page
+- `src/app/privacy/` — Privacy policy page
 - `src/components/menu/themes/` — 4 theme components (Classic, Modern, Dark, Bistro) + fonts.css
-- `src/components/dashboard/` — Dashboard UI components (MenuBuilder, CategoryCard, ItemFormModal, SortableItem, SettingsForm, QRCodeView, BillingView, LanguagesView, AIUploadView, MobileNav)
-- `src/components/ui/` — Shared UI (Toaster)
-- `src/lib/` — Core utilities (db, auth, ai, stripe, translate, tenant, rate-limit, email, constants)
+- `src/components/menu/` — Shared menu components (LanguageSwitcher, MenuFooter)
+- `src/components/dashboard/` — Dashboard UI components (MenuBuilder, CategoryCard, ItemFormModal, SortableItem, SettingsForm, QRCodeView, BillingView, LanguagesView, AIUploadView, MobileNav, EmailVerificationBanner, SignOutButton)
+- `src/components/admin/` — Admin UI components (UserTable, MenuTable)
+- `src/components/ui/` — Shared UI (Toaster, CookieBanner)
+- `src/lib/` — Core utilities (db, auth, ai, stripe, translate, tenant, rate-limit, email, constants, admin, s3, hooks, demo-data)
 - `src/types/` — Shared TypeScript types (User, Tenant, Menu, Category, Item, Translation)
 
 ## Database Schema
@@ -37,10 +43,14 @@ Tables: `users`, `accounts`, `sessions`, `verification_tokens` (NextAuth), `tena
 
 Key relationships: User -> Tenant (1:1 owner), Tenant -> Menus -> Categories -> Items. Translations are polymorphic (entityType + entityId + field).
 
+`users` table has a `role` field (`user` | `admin`) for admin access control.
+
 ## API Routes
 
 - `POST /api/auth/register` — User registration
 - `GET|POST /api/auth/[...nextauth]` — NextAuth handlers
+- `POST /api/auth/forgot-password` + `POST /api/auth/reset-password` — Password reset flow
+- `GET /api/auth/verify-email` + `POST /api/auth/resend-verification` — Email verification
 - `GET|POST /api/menus` + `PATCH|DELETE /api/menus/[id]` — Menu CRUD
 - `GET|POST /api/categories` + `PATCH|DELETE /api/categories/[id]` + `PUT /api/categories/reorder`
 - `GET|POST /api/items` + `PATCH|DELETE /api/items/[id]` + `PUT /api/items/reorder` + `PATCH /api/items/[id]/availability`
@@ -52,6 +62,10 @@ Key relationships: User -> Tenant (1:1 owner), Tenant -> Menus -> Categories -> 
 - `GET /api/qr` — QR code generation
 - `POST /api/stripe/checkout` + `POST /api/stripe/portal` + `POST /api/stripe/webhook`
 - `GET|POST|DELETE /api/domains` + `POST /api/domains/verify` + `GET /api/domains/resolve`
+- `GET /api/slug/check` + `GET /api/slug/suggest` — Slug availability + suggestions
+- `DELETE /api/account/delete` — Account deletion
+- `GET /api/admin/users` + `PATCH|DELETE /api/admin/users/[id]` — Admin user management
+- `GET /api/admin/menus` — Admin menu overview
 - `GET /api/health` — Health check
 - `POST /api/onboarding` — Onboarding completion
 
@@ -60,7 +74,7 @@ Key relationships: User -> Tenant (1:1 owner), Tenant -> Menus -> Categories -> 
 - Providers: Google OAuth + email/password credentials
 - JWT strategy (not database sessions)
 - Proxy (`src/proxy.ts`) handles: custom domain routing (rewrites to `/r/[slug]`), auth redirects for protected paths, redirect authenticated users away from login/register
-- Protected paths: `/menu`, `/qr`, `/settings`, `/billing`, `/upload`, `/onboarding`, `/languages`
+- Protected paths: `/menu`, `/qr`, `/settings`, `/billing`, `/upload`, `/onboarding`, `/languages`, `/admin`
 - Session token cookies: `authjs.session-token` or `__Secure-authjs.session-token`
 
 ## Design System
@@ -74,7 +88,8 @@ Key relationships: User -> Tenant (1:1 owner), Tenant -> Menus -> Categories -> 
 ## Plans & Limits
 
 Defined in `src/lib/constants.ts`:
-- **Free**: 1 menu, 20 images, 1 AI upload
+
+- **Free**: 3 menus, 20 images, 1 AI upload
 - **Pro** ($9/mo): 5 menus, 200 images, unlimited AI uploads, custom domain, no watermark
 - **Business** ($19/mo): Unlimited everything + priority support
 
@@ -84,6 +99,7 @@ Defined in `src/lib/constants.ts`:
 - 16 languages for AI translation
 - 7 item badges: vegan, vegetarian, gluten-free, spicy, new, chef_pick, popular
 - 7 allergens: gluten, dairy, nuts, eggs, soy, fish, shellfish
+- 22 supported currencies (see `SUPPORTED_CURRENCIES` in constants)
 - Custom domain support with auto-HTTPS (Caddy)
 
 ## Commands
