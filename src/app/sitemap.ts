@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { tenants } from "@/lib/db/schema";
+import { articles } from "./blog/_data/articles";
 
 export const dynamic = "force-dynamic";
 
@@ -54,6 +55,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Blog pages
+  const blogPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...articles.map((article) => ({
+      url: `${baseUrl}/blog/${article.slug}`,
+      lastModified: new Date(article.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+
   // Dynamic restaurant menu pages
   const allTenants = await db.select({ slug: tenants.slug, updatedAt: tenants.updatedAt }).from(tenants);
 
@@ -64,5 +81,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...menuPages];
+  return [...staticPages, ...blogPages, ...menuPages];
 }

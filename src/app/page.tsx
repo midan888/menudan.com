@@ -173,6 +173,12 @@ export default function HomePage() {
               Pricing
             </a>
             <Link
+              href="/blog"
+              className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
+            >
+              Blog
+            </Link>
+            <Link
               href="/login"
               className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
             >
@@ -186,6 +192,12 @@ export default function HomePage() {
             </Link>
           </nav>
           <div className="flex items-center gap-3 sm:hidden">
+            <Link
+              href="/blog"
+              className="text-sm text-gray-600 hover:text-indigo-600"
+            >
+              Blog
+            </Link>
             <Link
               href="/login"
               className="text-sm text-gray-600 hover:text-indigo-600"
@@ -550,6 +562,9 @@ export default function HomePage() {
               </span>
             </p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
+              <Link href="/blog" className="hover:text-gray-700">
+                Blog
+              </Link>
               <Link href="/privacy" className="hover:text-gray-700">
                 Privacy Policy
               </Link>
