@@ -96,8 +96,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             });
           }
 
+          // Mark email as verified if not already (Google has verified it)
+          if (!existingUser.emailVerified) {
+            await db.update(users).set({ emailVerified: new Date() }).where(eq(users.id, existingUser.id));
+          }
+
           // Override the user id so the JWT callback gets the correct one
           user.id = existingUser.id;
+        } else {
+          // New Google user — mark email as verified immediately
+          const newUser = await db.query.users.findFirst({
+            where: eq(users.email, user.email!),
+            columns: { id: true, emailVerified: true },
+          });
+          if (newUser && !newUser.emailVerified) {
+            await db.update(users).set({ emailVerified: new Date() }).where(eq(users.id, newUser.id));
+          }
         }
       }
       return true;
