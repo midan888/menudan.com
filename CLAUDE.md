@@ -102,6 +102,45 @@ Defined in `src/lib/constants.ts`:
 - 22 supported currencies (see `SUPPORTED_CURRENCIES` in constants)
 - Custom domain support with auto-HTTPS (Caddy)
 
+## Testing
+
+**Runner**: Vitest. Tests live in `tests/unit/` and `tests/api/`.
+
+**Run**: `npm test` | watch: `npm run test:watch`
+
+### What to test
+
+Write tests only when there is real breakage risk — logic with multiple branches, business rules enforced in code, or validation pipelines. A test should fail for a meaningful reason, not just because an `if` statement exists.
+
+**Good candidates:**
+
+- Business rules encoded in data (`PLAN_LIMITS`, `RESERVED_SLUGS`) — guard against accidental edits
+- Validation pipelines with multiple rules (slug format, length, reserved words) — easy to silently break
+- Stateful logic with edge cases (`rate-limit` windowing, exact-at-limit behaviour)
+- Plan enforcement in API routes (free tier limits, feature gating)
+- Auth/ownership checks in routes (wrong tenant, missing session)
+
+**Skip these:**
+
+- Functions that are just `if (!x) throw` wrappers with no branching logic
+- Drizzle schema definitions, NextAuth internals, Stripe/Anthropic SDK behaviour
+- Pure pass-through glue code (e.g. `requireAdmin` when it's 3 lines wrapping `auth()`)
+- Anything whose only possible failure mode is immediately visible at runtime
+
+### Mocking pattern for API routes
+
+Mock `@/lib/tenant` and `@/lib/db` at the module level, reset mocks in `beforeEach`:
+
+```ts
+vi.mock('@/lib/tenant', () => ({ requireTenant: vi.fn() }))
+vi.mock('@/lib/db', () => ({ db: { query: { table: { findFirst: vi.fn() } } } }))
+
+beforeEach(() => {
+  vi.mocked(requireTenant).mockResolvedValue(mockTenant as never)
+  vi.mocked(db.query.table.findFirst).mockReset()
+})
+```
+
 ## Commands
 
 - `npm run dev` — Start dev server
