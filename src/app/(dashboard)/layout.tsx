@@ -43,7 +43,7 @@ export default async function DashboardLayout({
       <aside className="hidden w-64 shrink-0 border-r border-gray-200 bg-white lg:block">
         <div className="flex h-16 items-center justify-between border-b border-gray-200 px-6">
           <Link href="/menu" className="text-lg font-bold text-gray-900">
-            {process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev"}
+            {process.env.NEXT_PUBLIC_APP_NAME || "qarta.app"}
           </Link>
           <a
             href={tenant.customDomain && tenant.domainVerified ? `https://${tenant.customDomain}` : `/r/${tenant.slug}`}
@@ -102,7 +102,7 @@ export default async function DashboardLayout({
       <div className="flex flex-1 flex-col overflow-x-hidden">
         <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 lg:hidden">
           <Link href="/menu" className="text-lg font-bold text-gray-900">
-            {process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev"}
+            {process.env.NEXT_PUBLIC_APP_NAME || "qarta.app"}
           </Link>
           <div className="flex items-center gap-2">
             <a

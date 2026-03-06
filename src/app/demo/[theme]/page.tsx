@@ -14,7 +14,7 @@ import { getDemoData, VALID_THEMES } from "@/lib/demo-data";
 import type { Metadata } from "next";
 import "@/components/menu/themes/fonts.css";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.app";
 
 const THEME_MAP = {
   classic: ClassicTheme,

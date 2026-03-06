@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.app";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {

@@ -1,11 +1,11 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "qarta.dev — Digital Menus for Restaurants";
+export const alt = "qarta.app — Digital Menus for Restaurants";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.app";
 
 export default function OgImage() {
   return new ImageResponse(

@@ -1,4 +1,4 @@
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.app";
 
 export interface ArticleSection {
   type: "paragraph" | "heading2" | "heading3" | "list" | "blockquote" | "cta";

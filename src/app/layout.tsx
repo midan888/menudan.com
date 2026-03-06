@@ -4,7 +4,7 @@ import { CookieBanner } from "@/components/ui/CookieBanner";
 import "./globals.css";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.dev";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "qarta.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),

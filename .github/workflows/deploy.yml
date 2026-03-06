@@ -142,9 +142,9 @@ jobs:
         if: always()
         run: |
           if [ "${{ job.status }}" = "success" ]; then
-            MESSAGE="✅ *qarta.dev* deployed successfully%0ACommit: \`${GITHUB_SHA::7}\`%0ABy: ${{ github.actor }}"
+            MESSAGE="✅ *qarta.app* deployed successfully%0ACommit: \`${GITHUB_SHA::7}\`%0ABy: ${{ github.actor }}"
           else
-            MESSAGE="❌ *qarta.dev* deploy failed%0ACommit: \`${GITHUB_SHA::7}\`%0ABy: ${{ github.actor }}"
+            MESSAGE="❌ *qarta.app* deploy failed%0ACommit: \`${GITHUB_SHA::7}\`%0ABy: ${{ github.actor }}"
           fi
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \

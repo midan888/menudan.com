@@ -1,4 +1,4 @@
-# CLAUDE.md — qarta.dev
+# CLAUDE.md — qarta.app
 
 ## Project Overview
 
