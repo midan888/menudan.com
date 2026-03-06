@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import { eq, and } from 'drizzle-orm';
 import { db } from './db';
 import { users, accounts, sessions, verificationTokens } from './db/schema';
+import { emitHook } from './hooks';
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db, {
@@ -104,28 +105,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           // Override the user id so the JWT callback gets the correct one
           user.id = existingUser.id;
         } else {
-          // New Google user — mark email as verified immediately
-          const newUser = await db.query.users.findFirst({
-            where: eq(users.email, user.email!),
-            columns: { id: true, emailVerified: true },
-          });
-          if (newUser && !newUser.emailVerified) {
-            await db.update(users).set({ emailVerified: new Date() }).where(eq(users.id, newUser.id));
-          }
+          // New Google user — emit registration hook (user row created by adapter after this returns)
+          emitHook('user.registered', { name: user.name ?? undefined, email: user.email }).catch(() => {});
         }
       }
       return true;
     },
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user, account, trigger }) {
       if (user) {
         token.id = user.id;
-        // Fetch role and emailVerified from DB on sign-in
         const dbUser = await db.query.users.findFirst({
           where: eq(users.id, user.id!),
           columns: { role: true, emailVerified: true },
         });
         token.role = dbUser?.role ?? 'user';
-        token.emailVerified = dbUser?.emailVerified ?? null;
+        // For Google sign-ins, email is verified by Google — set it directly
+        // to avoid a race condition where the adapter hasn't persisted the new
+        // user row yet (emailVerified would be null in DB at this point).
+        token.emailVerified = account?.provider === 'google'
+          ? new Date()
+          : (dbUser?.emailVerified ?? null);
       }
       // Refresh role and emailVerified on session update
       if (trigger === 'update' && token.id) {
