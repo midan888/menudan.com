@@ -14,6 +14,12 @@ const THEME_PREVIEWS: Record<string, { bg: string; text: string; accent: string 
   modern: { bg: "#FFFFFF", text: "#111111", accent: "#111111" },
   dark: { bg: "#0A0A0A", text: "#F5F5F5", accent: "#C8A064" },
   bistro: { bg: "#F5EDE3", text: "#3D2E1E", accent: "#B8860B" },
+  nordic: { bg: "#F7F7F5", text: "#1A1A1A", accent: "#4A7C59" },
+  neon: { bg: "#0D0D0D", text: "#FFFFFF", accent: "#00FF88" },
+  rustic: { bg: "#F2E8D9", text: "#3B2A1A", accent: "#8B5E3C" },
+  zen: { bg: "#F5F3EE", text: "#2D2926", accent: "#7C6E5A" },
+  luxe: { bg: "#0A0A0A", text: "#F0E6C8", accent: "#C9A84C" },
+  vibra: { bg: "#FFFBF0", text: "#1A1A1A", accent: "#FF4D00" },
 };
 
 export function SettingsForm({ tenant }: SettingsFormProps) {
