@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function ModernTheme({
   tenant,
@@ -194,7 +195,7 @@ export function ModernTheme({
                     <div key={item.id} className="modern-item-card">
                       <div className="flex gap-3">
                         {item.imageUrl && (
-                          <Image
+                          <TappableImage
                             src={item.imageUrl}
                             alt={item.name}
                             width={80}

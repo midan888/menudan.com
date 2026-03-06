@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function ClassicTheme({
   tenant,
@@ -178,7 +179,7 @@ export function ClassicTheme({
                     <div key={item.id} className="classic-item-card">
                       <div className="flex gap-4">
                         {item.imageUrl && (
-                          <Image
+                          <TappableImage
                             src={item.imageUrl}
                             alt={item.name}
                             width={80}

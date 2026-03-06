@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function ZenTheme({
   tenant,
@@ -234,7 +235,7 @@ export function ZenTheme({
                     <div key={item.id} className="zen-item">
                       <div className="flex gap-4">
                         {item.imageUrl && (
-                          <Image
+                          <TappableImage
                             src={item.imageUrl}
                             alt={item.name}
                             width={68}

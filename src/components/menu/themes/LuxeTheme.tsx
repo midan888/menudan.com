@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function LuxeTheme({
   tenant,
@@ -249,7 +250,7 @@ export function LuxeTheme({
                     <div key={item.id} className="luxe-item">
                       <div className="flex gap-4">
                         {item.imageUrl && (
-                          <Image
+                          <TappableImage
                             src={item.imageUrl}
                             alt={item.name}
                             width={80}

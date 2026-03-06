@@ -22,6 +22,7 @@ import { LuxeTheme } from "@/components/menu/themes/LuxeTheme";
 import { VibraTheme } from "@/components/menu/themes/VibraTheme";
 import { LanguageSwitcher } from "@/components/menu/LanguageSwitcher";
 import { MenuFooter } from "@/components/menu/MenuFooter";
+import { LightboxPortal } from "@/components/menu/ImageLightbox";
 import type { Metadata } from "next";
 import "@/components/menu/themes/fonts.css";
 
@@ -245,6 +246,7 @@ export default async function PublicMenuPage({
       />
       <ThemeComponent {...themeProps} />
       <MenuFooter plan={tenant.plan} />
+      <LightboxPortal />
     </>
   );
 }

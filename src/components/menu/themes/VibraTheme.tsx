@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableDiv } from "@/components/menu/ImageLightbox";
 
 export function VibraTheme({
   tenant,
@@ -274,7 +275,7 @@ export function VibraTheme({
                     return (
                       <div key={item.id} className="vibra-card">
                         {item.imageUrl && (
-                          <div className="vibra-card-image">
+                          <TappableDiv src={item.imageUrl} alt={item.name} className="vibra-card-image">
                             <Image
                               src={item.imageUrl}
                               alt={item.name}
@@ -283,7 +284,7 @@ export function VibraTheme({
                               className="object-cover"
                             />
                             <div className="vibra-price-bubble">{formatPrices(item)}</div>
-                          </div>
+                          </TappableDiv>
                         )}
                         <div className="p-4">
                           <h3 className="text-base font-bold leading-snug">

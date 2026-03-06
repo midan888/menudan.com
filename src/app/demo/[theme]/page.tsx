@@ -11,6 +11,7 @@ import { ZenTheme } from "@/components/menu/themes/ZenTheme";
 import { LuxeTheme } from "@/components/menu/themes/LuxeTheme";
 import { VibraTheme } from "@/components/menu/themes/VibraTheme";
 import { getDemoData, VALID_THEMES } from "@/lib/demo-data";
+import { LightboxPortal } from "@/components/menu/ImageLightbox";
 import type { Metadata } from "next";
 import "@/components/menu/themes/fonts.css";
 
@@ -151,6 +152,7 @@ export default async function DemoPage({ params }: PageProps) {
       {/* Spacer for fixed bar */}
       <div style={{ height: "44px" }} />
       <ThemeComponent {...demoData} />
+      <LightboxPortal />
     </>
   );
 }

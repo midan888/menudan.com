@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function RusticTheme({
   tenant,
@@ -244,7 +245,7 @@ export function RusticTheme({
                     return (
                       <div key={item.id} className="flex gap-4">
                         {item.imageUrl && (
-                          <Image
+                          <TappableImage
                             src={item.imageUrl}
                             alt={item.name}
                             width={76}

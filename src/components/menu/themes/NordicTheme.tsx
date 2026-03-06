@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ThemeProps } from "./types";
 import { t, formatPrices } from "./types";
+import { TappableImage } from "@/components/menu/ImageLightbox";
 
 export function NordicTheme({
   tenant,
@@ -182,7 +183,7 @@ export function NordicTheme({
                   return (
                     <div key={item.id} className="nordic-item">
                       {item.imageUrl && (
-                        <Image
+                        <TappableImage
                           src={item.imageUrl}
                           alt={item.name}
                           width={72}
