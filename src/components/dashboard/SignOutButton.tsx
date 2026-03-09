@@ -1,14 +1,17 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { t } from "@/lib/translations";
+
+const i18n = t();
 
 export function SignOutButton() {
   return (
     <button
       onClick={() => signOut({ redirectTo: "/login" })}
       className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-      aria-label="Sign out"
-      title="Sign out"
+      aria-label={i18n.dashboard.nav.signOut}
+      title={i18n.dashboard.nav.signOut}
     >
       <svg
         className="h-5 w-5"

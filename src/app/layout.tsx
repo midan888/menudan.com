@@ -1,40 +1,40 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/ui/Toaster";
 import { CookieBanner } from "@/components/ui/CookieBanner";
+import { getLocale } from "@/lib/locale";
+import { t } from "@/lib/translations";
 import "./globals.css";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
+const i18n = t();
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),
   title: {
-    default: `${APP_NAME} — Digital Menus for Restaurants`,
+    default: `${APP_NAME} — ${i18n.meta.title}`,
     template: `%s — ${APP_NAME}`,
   },
-  description:
-    "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
+  description: i18n.meta.description,
   openGraph: {
     type: "website",
     siteName: APP_NAME,
-    title: `${APP_NAME} — Digital Menus for Restaurants`,
-    description:
-      "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
+    title: `${APP_NAME} — ${i18n.meta.title}`,
+    description: i18n.meta.description,
     url: APP_URL,
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: `${APP_NAME} — Digital Menus for Restaurants`,
+        alt: `${APP_NAME} — ${i18n.meta.ogAlt}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${APP_NAME} — Digital Menus for Restaurants`,
-    description:
-      "Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.",
+    title: `${APP_NAME} — ${i18n.meta.title}`,
+    description: i18n.meta.description,
     images: ["/og-image.png"],
   },
   icons: {
@@ -55,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang={getLocale()}>
       <body className="antialiased">
         <ToastProvider>
           {children}

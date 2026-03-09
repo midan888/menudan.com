@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { THEMES } from "@/lib/constants";
+import { t } from "@/lib/translations";
+
+const i18n = t();
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -12,9 +15,13 @@ export default function OnboardingPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const s1 = i18n.onboarding.step1;
+  const s2 = i18n.onboarding.step2;
+  const s3 = i18n.onboarding.step3;
+
   async function handleComplete(redirectTo: string) {
     if (!name.trim()) {
-      setError("Please enter your restaurant name");
+      setError(s1.error);
       return;
     }
 
@@ -60,24 +67,18 @@ export default function OnboardingPage() {
 
           {step === 1 && (
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Name your restaurant
-              </h1>
-              <p className="mt-2 text-sm text-gray-600">
-                This will be displayed on your menu page.
-              </p>
+              <h1 className="text-2xl font-bold text-gray-900">{s1.title}</h1>
+              <p className="mt-2 text-sm text-gray-600">{s1.subtitle}</p>
 
               {error && (
-                <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-                  {error}
-                </div>
+                <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
               )}
 
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Le Petit Jardin"
+                placeholder={s1.placeholder}
                 className="mt-6 block w-full rounded-lg border border-gray-300 px-4 py-3 text-base shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
                 autoFocus
               />
@@ -85,7 +86,7 @@ export default function OnboardingPage() {
               <button
                 onClick={() => {
                   if (!name.trim()) {
-                    setError("Please enter your restaurant name");
+                    setError(s1.error);
                     return;
                   }
                   setError("");
@@ -93,19 +94,15 @@ export default function OnboardingPage() {
                 }}
                 className="mt-6 w-full rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
-                Continue
+                {s1.continue}
               </button>
             </div>
           )}
 
           {step === 2 && (
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Choose your style
-              </h1>
-              <p className="mt-2 text-sm text-gray-600">
-                Pick a design theme for your menu page. You can change this later.
-              </p>
+              <h1 className="text-2xl font-bold text-gray-900">{s2.title}</h1>
+              <p className="mt-2 text-sm text-gray-600">{s2.subtitle}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {THEMES.map((theme) => (
@@ -118,12 +115,8 @@ export default function OnboardingPage() {
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
-                    <p className="text-sm font-semibold text-gray-900">
-                      {theme.name}
-                    </p>
-                    <p className="mt-1 text-xs text-gray-500">
-                      {theme.description}
-                    </p>
+                    <p className="text-sm font-semibold text-gray-900">{theme.name}</p>
+                    <p className="mt-1 text-xs text-gray-500">{theme.description}</p>
                   </button>
                 ))}
               </div>
@@ -133,7 +126,7 @@ export default function OnboardingPage() {
                   onClick={() => setStep(1)}
                   className="flex-1 rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
-                  Back
+                  {s2.back}
                 </button>
                 <button
                   onClick={() => {
@@ -142,7 +135,7 @@ export default function OnboardingPage() {
                   }}
                   className="flex-1 rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800"
                 >
-                  Continue
+                  {s2.continue}
                 </button>
               </div>
             </div>
@@ -152,72 +145,31 @@ export default function OnboardingPage() {
             <div>
               <div className="flex flex-col items-center text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50">
-                  <svg
-                    className="h-8 w-8 text-indigo-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"
-                    />
+                  <svg className="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z" />
                   </svg>
                 </div>
 
-                <h1 className="mt-5 text-2xl font-bold text-gray-900">
-                  Got a paper menu?
-                </h1>
-                <p className="mt-2 text-sm text-gray-600">
-                  Skip the manual work — upload a photo of your menu and our AI
-                  will extract all items automatically.
-                </p>
+                <h1 className="mt-5 text-2xl font-bold text-gray-900">{s3.title}</h1>
+                <p className="mt-2 text-sm text-gray-600">{s3.subtitle}</p>
               </div>
 
               <div className="mt-6 space-y-3 rounded-lg bg-gray-50 p-4">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
-                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
+                {s3.benefits.map((benefit, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                      <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <p className="text-sm text-gray-700">{benefit}</p>
                   </div>
-                  <p className="text-sm text-gray-700">
-                    Snap a photo or upload a PDF of your existing menu
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
-                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <p className="text-sm text-gray-700">
-                    AI reads every item, price, and description in seconds
-                  </p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
-                    <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <p className="text-sm text-gray-700">
-                    Review and edit before saving — you&apos;re always in control
-                  </p>
-                </div>
+                ))}
               </div>
 
               {error && (
-                <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-                  {error}
-                </div>
+                <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
               )}
 
               <div className="mt-6 space-y-3">
@@ -226,14 +178,14 @@ export default function OnboardingPage() {
                   disabled={loading}
                   className="w-full rounded-lg bg-gray-900 px-4 py-3 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
                 >
-                  {loading ? "Setting up..." : "Upload Menu Photo"}
+                  {loading ? s3.settingUp : s3.uploadPhoto}
                 </button>
                 <button
                   onClick={() => handleComplete("/menu")}
                   disabled={loading}
                   className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
                 >
-                  I&apos;ll add items manually
+                  {s3.addManually}
                 </button>
               </div>
 
@@ -242,7 +194,7 @@ export default function OnboardingPage() {
                 disabled={loading}
                 className="mt-3 w-full text-center text-xs text-gray-400 hover:text-gray-600 disabled:opacity-50"
               >
-                Back
+                {s3.back}
               </button>
             </div>
           )}

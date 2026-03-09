@@ -41,7 +41,9 @@ export const PLAN_LIMITS = {
 
 export type PlanType = keyof typeof PLAN_LIMITS;
 
-export const SUPPORTED_LANGUAGES = [
+import { isRussian } from '@/lib/locale';
+
+const ALL_LANGUAGES = [
   { code: 'en', name: 'English', nativeName: 'English' },
   { code: 'fr', name: 'French', nativeName: 'Français' },
   { code: 'es', name: 'Spanish', nativeName: 'Español' },
@@ -59,6 +61,12 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'th', name: 'Thai', nativeName: 'ไทย' },
   { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt' },
 ] as const;
+
+const RU_LANGUAGES = [
+  { code: 'ru', name: 'Russian', nativeName: 'Русский' },
+] as const;
+
+export const SUPPORTED_LANGUAGES = isRussian() ? RU_LANGUAGES : ALL_LANGUAGES;
 
 export const BADGES = [
   'vegan',
@@ -80,7 +88,7 @@ export const ALLERGENS = [
   'shellfish',
 ] as const;
 
-export const SUPPORTED_CURRENCIES = [
+const ALL_CURRENCIES = [
   { code: 'USD', name: 'US Dollar', symbol: '$' },
   { code: 'EUR', name: 'Euro', symbol: '€' },
   { code: 'GBP', name: 'British Pound', symbol: '£' },
@@ -104,6 +112,12 @@ export const SUPPORTED_CURRENCIES = [
   { code: 'GEL', name: 'Georgian Lari', symbol: '₾' },
   { code: 'MXN', name: 'Mexican Peso', symbol: 'MX$' },
 ] as const;
+
+const RU_CURRENCIES = [
+  { code: 'RUB', name: 'Российский рубль', symbol: '₽' },
+] as const;
+
+export const SUPPORTED_CURRENCIES = isRussian() ? RU_CURRENCIES : ALL_CURRENCIES;
 
 export const THEMES = [
   { id: 'classic', name: 'Classic', description: 'Editorial, warm, sophisticated' },

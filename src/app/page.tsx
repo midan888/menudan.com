@@ -1,13 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { t } from "@/lib/translations";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const i18n = t();
 
 export const metadata: Metadata = {
-  title: `${APP_NAME} — Digital Menus for Restaurants`,
-  description:
-    "Put your restaurant menu online in under 5 minutes. Upload a photo, pick a theme, get a QR code. No technical skills required.",
+  title: `${APP_NAME} — ${i18n.meta.title}`,
+  description: i18n.landing.hero.subtitle,
   alternates: {
     canonical: APP_URL,
   },
@@ -16,139 +17,45 @@ export const metadata: Metadata = {
   },
 };
 
-const features = [
-  {
-    title: "AI Menu Extraction",
-    description:
-      "Snap a photo of your paper menu — our AI reads it and creates your digital menu automatically.",
-    icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
-    color: "from-indigo-500 to-indigo-600",
-    bgLight: "bg-indigo-50",
-    textColor: "text-indigo-600",
-  },
-  {
-    title: "10 Beautiful Themes",
-    description:
-      "Classic, Neon, Luxe, Nordic and more — pick a vibe that matches your restaurant perfectly. No design skills needed.",
-    icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
-    color: "from-violet-500 to-violet-600",
-    bgLight: "bg-violet-50",
-    textColor: "text-violet-600",
-  },
-  {
-    title: "Instant QR Codes",
-    description:
-      "Download print-ready QR codes in PNG or SVG. Place them on tables and your guests are one scan away.",
-    icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
-    color: "from-teal-500 to-teal-600",
-    bgLight: "bg-teal-50",
-    textColor: "text-teal-600",
-  },
-  {
-    title: "Multi-Language",
-    description:
-      "AI-powered translation into 16 languages. Your international guests read the menu in their own language.",
-    icon: "M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129",
-    color: "from-purple-500 to-purple-600",
-    bgLight: "bg-purple-50",
-    textColor: "text-purple-600",
-  },
-  {
-    title: "Real-Time Updates",
-    description:
-      "86 an item or change prices instantly. Your digital menu updates in real time — no reprinting.",
-    icon: "M13 10V3L4 14h7v7l9-11h-7z",
-    color: "from-amber-500 to-amber-600",
-    bgLight: "bg-amber-50",
-    textColor: "text-amber-600",
-  },
-  {
-    title: "Custom Domains",
-    description:
-      "Use your own domain like menu.yourrestaurant.com with automatic HTTPS. Looks professional, loads fast.",
-    icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9",
-    color: "from-cyan-500 to-cyan-600",
-    bgLight: "bg-cyan-50",
-    textColor: "text-cyan-600",
-  },
+const featureIcons = [
+  "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
+  "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
+  "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
+  "M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129",
+  "M13 10V3L4 14h7v7l9-11h-7z",
+  "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9",
 ];
 
-const plans = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    description: "Perfect for trying it out",
-    features: [
-      "1 menu",
-      "20 item images",
-      "1 AI upload",
-      "All 10 themes",
-      "QR code download",
-    ],
-    cta: "Get Started Free",
-    href: "/register",
-    highlighted: false,
-    comingSoon: false,
-  },
-  {
-    name: "Pro",
-    price: "$9",
-    period: "/month",
-    description: "For growing restaurants",
-    features: [
-      "5 menus",
-      "200 item images",
-      "Unlimited AI uploads",
-      "Custom domain",
-      "No watermark",
-    ],
-    cta: "Coming Soon",
-    href: "",
-    highlighted: true,
-    comingSoon: true,
-  },
-  {
-    name: "Business",
-    price: "$19",
-    period: "/month",
-    description: "For multi-menu establishments",
-    features: [
-      "Unlimited menus",
-      "Unlimited images",
-      "Unlimited AI uploads",
-      "Custom domain",
-      "Priority support",
-    ],
-    cta: "Coming Soon",
-    href: "",
-    highlighted: false,
-    comingSoon: true,
-  },
+const featureColors = [
+  { color: "from-indigo-500 to-indigo-600", bgLight: "bg-indigo-50", textColor: "text-indigo-600" },
+  { color: "from-violet-500 to-violet-600", bgLight: "bg-violet-50", textColor: "text-violet-600" },
+  { color: "from-teal-500 to-teal-600", bgLight: "bg-teal-50", textColor: "text-teal-600" },
+  { color: "from-purple-500 to-purple-600", bgLight: "bg-purple-50", textColor: "text-purple-600" },
+  { color: "from-amber-500 to-amber-600", bgLight: "bg-amber-50", textColor: "text-amber-600" },
+  { color: "from-cyan-500 to-cyan-600", bgLight: "bg-cyan-50", textColor: "text-cyan-600" },
 ];
 
-const steps = [
-  {
-    step: "1",
-    title: "Upload your menu",
-    description: "Take a photo of your paper menu or enter items manually.",
-    icon: "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z",
-  },
-  {
-    step: "2",
-    title: "Pick a theme",
-    description: "Choose from 10 beautiful designs that match your restaurant.",
-    icon: "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
-  },
-  {
-    step: "3",
-    title: "Share your QR code",
-    description: "Download, print, and place on tables. You're live!",
-    icon: "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
-  },
+const stepIcons = [
+  "M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z",
+  "M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01",
+  "M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z",
+];
+
+const plansMeta = [
+  { highlighted: false, comingSoon: false, href: "/register" },
+  { highlighted: true, comingSoon: true, href: "" },
+  { highlighted: false, comingSoon: true, href: "" },
 ];
 
 export default function HomePage() {
+  const nav = i18n.landing.nav;
+  const hero = i18n.landing.hero;
+  const feat = i18n.landing.features;
+  const hw = i18n.landing.howItWorks;
+  const pr = i18n.landing.pricing;
+  const cta = i18n.landing.cta;
+  const footer = i18n.landing.footer;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -164,31 +71,31 @@ export default function HomePage() {
               href="#features"
               className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
             >
-              Features
+              {nav.features}
             </a>
             <a
               href="#pricing"
               className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
             >
-              Pricing
+              {nav.pricing}
             </a>
             <Link
               href="/blog"
               className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
             >
-              Blog
+              {nav.blog}
             </Link>
             <Link
               href="/login"
               className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
             >
-              Log in
+              {nav.login}
             </Link>
             <Link
               href="/register"
               className="rounded-lg bg-linear-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-medium text-white shadow-md shadow-indigo-500/25 transition-all hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
             >
-              Get Started
+              {nav.getStarted}
             </Link>
           </nav>
           <div className="flex items-center gap-3 sm:hidden">
@@ -196,19 +103,19 @@ export default function HomePage() {
               href="/blog"
               className="text-sm text-gray-600 hover:text-indigo-600"
             >
-              Blog
+              {nav.blog}
             </Link>
             <Link
               href="/login"
               className="text-sm text-gray-600 hover:text-indigo-600"
             >
-              Log in
+              {nav.login}
             </Link>
             <Link
               href="/register"
               className="rounded-lg bg-linear-to-r from-indigo-600 to-violet-600 px-3 py-2 text-sm font-medium text-white shadow-md shadow-indigo-500/25"
             >
-              Get Started
+              {nav.getStarted}
             </Link>
           </div>
         </div>
@@ -230,39 +137,37 @@ export default function HomePage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-indigo-500" />
             </span>
-            No credit card required
+            {hero.badge}
           </div>
           <h1 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-            Your restaurant menu,
+            {hero.titleLine1}
             <br />
             <span className="bg-linear-to-r from-indigo-600 via-violet-600 to-purple-600 bg-clip-text text-transparent">
-              online in 5 minutes
+              {hero.titleLine2}
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-600">
-            Upload a photo of your paper menu — AI extracts items automatically.
-            Choose a beautiful theme, get a QR code, and you&apos;re live. No
-            technical skills required.
+            {hero.subtitle}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/register"
               className="w-full rounded-lg bg-linear-to-r from-indigo-600 to-violet-600 px-8 py-3.5 text-base font-medium text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-xl hover:shadow-indigo-500/30 hover:brightness-110 sm:w-auto"
             >
-              Create Your Menu — Free
+              {hero.cta}
             </Link>
             <a
               href="#how-it-works"
               className="w-full rounded-lg border border-gray-200 px-8 py-3.5 text-base font-medium text-gray-700 transition-colors hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700 sm:w-auto"
             >
-              See How It Works
+              {hero.secondaryCta}
             </a>
           </div>
 
           {/* Theme preview badges */}
           <div id="themes" className="mx-auto mt-16 max-w-4xl">
             <p className="mb-6 text-center text-sm font-medium text-gray-500 uppercase tracking-wider">
-              10 themes — click any to preview live
+              {hero.themesLabel}
             </p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
               {/* Classic */}
@@ -280,7 +185,7 @@ export default function HomePage() {
                   <div className="mt-3 h-0.5 w-full rounded-full" style={{ background: "linear-gradient(to right, transparent, #8B4513, transparent)" }} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -302,7 +207,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -321,7 +226,7 @@ export default function HomePage() {
                   <div className="mt-3 h-1 w-1 rounded-full" style={{ backgroundColor: "#C8A064", boxShadow: "0 0 6px #C8A064" }} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#C8A064", background: "rgba(0,0,0,0.7)" }}>
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -344,7 +249,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium text-amber-700 opacity-0 group-hover:opacity-100 transition-opacity bg-amber-50/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -363,7 +268,7 @@ export default function HomePage() {
                   <div className="mt-3 h-0.5 w-8 rounded-full" style={{ backgroundColor: "#2D6A4F" }} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -382,7 +287,7 @@ export default function HomePage() {
                   <div className="mt-3 h-px w-full" style={{ background: "linear-gradient(to right, transparent, #00FF9440, transparent)" }} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#00FF94", background: "rgba(7,7,26,0.8)" }}>
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -401,7 +306,7 @@ export default function HomePage() {
                   <div className="mt-3 text-[10px]" style={{ color: "#8B3A2A40" }}>01  02  03</div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#F2E8D9", background: "rgba(46,31,18,0.85)" }}>
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -424,7 +329,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium text-red-700 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -443,7 +348,7 @@ export default function HomePage() {
                   <div className="mt-3 h-px w-full" style={{ background: "linear-gradient(to right, transparent, #C9A84C50, transparent)" }} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#C9A84C", background: "rgba(12,12,12,0.85)" }}>
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
 
@@ -461,7 +366,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 py-2 text-center text-[10px] font-bold text-orange-600 opacity-0 group-hover:opacity-100 transition-opacity bg-orange-50/80">
-                  Preview →
+                  {hero.preview}
                 </div>
               </Link>
             </div>
@@ -474,24 +379,24 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-              Simple setup
+              {hw.label}
             </p>
             <h2 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Three steps to go digital
+              {hw.title}
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              From paper menu to QR code in minutes, not weeks.
+              {hw.subtitle}
             </p>
           </div>
           <div className="mt-16 grid gap-8 sm:grid-cols-3">
-            {steps.map((s, i) => (
-              <div key={s.step} className="relative text-center">
+            {i18n.landing.steps.map((s, i) => (
+              <div key={i} className="relative text-center">
                 {/* Connector line */}
-                {i < steps.length - 1 && (
+                {i < i18n.landing.steps.length - 1 && (
                   <div className="absolute left-[calc(50%+32px)] top-6 hidden h-0.5 w-[calc(100%-64px)] bg-linear-to-r from-indigo-300 to-violet-300 sm:block" />
                 )}
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-indigo-600 to-violet-600 text-lg font-bold text-white shadow-md shadow-indigo-500/25">
-                  {s.step}
+                  {i + 1}
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-gray-900">
                   {s.title}
@@ -510,22 +415,22 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-              Features
+              {feat.label}
             </p>
             <h2 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Everything you need to go paperless
+              {feat.title}
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Powerful features, simple interface. Built for restaurant owners.
+              {feat.subtitle}
             </p>
           </div>
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
+            {feat.items.map((feature, idx) => (
               <div
-                key={feature.title}
+                key={idx}
                 className="group rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:border-indigo-100 hover:shadow-md hover:shadow-indigo-500/5"
               >
-                <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br ${feature.color} shadow-sm`}>
+                <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br ${featureColors[idx].color} shadow-sm`}>
                   <svg
                     className="h-5 w-5 text-white"
                     fill="none"
@@ -537,7 +442,7 @@ export default function HomePage() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      d={feature.icon}
+                      d={featureIcons[idx]}
                     />
                   </svg>
                 </div>
@@ -561,28 +466,30 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-              Pricing
+              {pr.label}
             </p>
             <h2 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Simple, transparent pricing
+              {pr.title}
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Start free. Upgrade when you need more.
+              {pr.subtitle}
             </p>
           </div>
           <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            {plans.map((plan) => (
+            {pr.plans.map((plan, idx) => {
+              const meta = plansMeta[idx];
+              return (
               <div
-                key={plan.name}
+                key={idx}
                 className={`relative rounded-2xl border-2 bg-white p-8 transition-shadow ${
-                  plan.highlighted
+                  meta.highlighted
                     ? "border-indigo-600 shadow-xl shadow-indigo-500/10"
                     : "border-gray-200 hover:shadow-lg"
                 }`}
               >
-                {plan.comingSoon && (
+                {meta.comingSoon && (
                   <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-linear-to-r from-amber-500 to-orange-500 px-4 py-1 text-xs font-medium text-white shadow-md shadow-amber-500/25">
-                    Coming Soon
+                    {pr.comingSoon}
                   </span>
                 )}
                 <div>
@@ -623,7 +530,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                {plan.comingSoon ? (
+                {meta.comingSoon ? (
                   <span
                     className="mt-8 block w-full cursor-not-allowed rounded-lg border border-gray-200 bg-gray-50 py-3 text-center text-sm font-medium text-gray-400"
                   >
@@ -631,9 +538,9 @@ export default function HomePage() {
                   </span>
                 ) : (
                   <Link
-                    href={plan.href}
+                    href={meta.href}
                     className={`mt-8 block w-full rounded-lg py-3 text-center text-sm font-medium transition-all ${
-                      plan.highlighted
+                      meta.highlighted
                         ? "bg-linear-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25 hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
                         : "border border-gray-200 text-gray-700 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
                     }`}
@@ -642,11 +549,11 @@ export default function HomePage() {
                   </Link>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
           <p className="mt-8 text-center text-sm text-gray-500">
-            All plans include all 10 themes, QR code generation, multi-language
-            support, and real-time updates.
+            {pr.allPlansInclude}
           </p>
         </div>
       </section>
@@ -661,17 +568,16 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                Ready to ditch the paper menu?
+                {cta.title}
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100">
-                Join restaurants worldwide that use {APP_NAME} to create
-                beautiful digital menus their guests love.
+                {cta.subtitle.replace('{appName}', APP_NAME)}
               </p>
               <Link
                 href="/register"
                 className="mt-8 inline-block rounded-lg bg-white px-8 py-3.5 text-base font-medium text-indigo-700 shadow-lg transition-all hover:bg-indigo-50 hover:shadow-xl"
               >
-                Create Your Menu — Free
+                {cta.button}
               </Link>
             </div>
           </div>
@@ -691,10 +597,10 @@ export default function HomePage() {
             </p>
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <Link href="/blog" className="hover:text-gray-700">
-                Blog
+                {footer.blog}
               </Link>
               <Link href="/privacy" className="hover:text-gray-700">
-                Privacy Policy
+                {footer.privacy}
               </Link>
               <span>&copy; {new Date().getFullYear()} {APP_NAME}</span>
             </div>

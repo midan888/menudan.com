@@ -3,18 +3,18 @@ import { articles } from "./_data/articles";
 import { BlogHeader } from "./_components/BlogHeader";
 import { BlogFooter } from "./_components/BlogFooter";
 import { BlogCard } from "./_components/BlogCard";
+import { t } from "@/lib/translations";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const i18n = t();
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Tips, guides, and insights on digital menus, QR codes, restaurant marketing, menu design psychology, and AI technology for restaurant owners.",
+  title: i18n.blog.title,
+  description: i18n.blog.metaDescription,
   alternates: { canonical: `${APP_URL}/blog` },
   openGraph: {
-    title: "Restaurant Digital Menu Blog",
-    description:
-      "Tips, guides, and insights on digital menus, QR codes, restaurant marketing, menu design psychology, and AI technology for restaurant owners.",
+    title: i18n.blog.heading,
+    description: i18n.blog.metaDescription,
     url: `${APP_URL}/blog`,
   },
 };
@@ -33,14 +33,13 @@ export default function BlogPage() {
           </div>
           <div className="relative mx-auto max-w-6xl px-6 text-center">
             <p className="text-sm font-semibold uppercase tracking-wider text-indigo-600">
-              Blog
+              {i18n.blog.title}
             </p>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Insights for Restaurant Owners
+              {i18n.blog.subtitle}
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-lg text-gray-600">
-              Practical guides on digital menus, menu design, AI, and everything
-              that helps your restaurant thrive.
+              {i18n.blog.description}
             </p>
           </div>
         </section>
@@ -64,9 +63,8 @@ export default function BlogPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            name: "Restaurant Digital Menu Blog",
-            description:
-              "Tips, guides, and insights on digital menus, QR codes, restaurant marketing, menu design psychology, and AI technology for restaurant owners.",
+            name: i18n.blog.heading,
+            description: i18n.blog.metaDescription,
             url: `${APP_URL}/blog`,
           }),
         }}

@@ -1,4 +1,7 @@
 import { PLAN_LIMITS, type PlanType } from "@/lib/constants";
+import { t } from "@/lib/translations";
+
+const i18n = t();
 
 interface MenuFooterProps {
   plan: string;
@@ -15,7 +18,7 @@ export function MenuFooter({ plan }: MenuFooterProps) {
         href="/"
         className="text-xs opacity-30 transition-opacity hover:opacity-50"
       >
-        Powered by menudan.com
+        {i18n.menuFooter.poweredBy} {process.env.NEXT_PUBLIC_APP_NAME || "menudan.com"}
       </a>
     </footer>
   );

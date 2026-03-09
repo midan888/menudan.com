@@ -4,6 +4,9 @@ import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { t } from "@/lib/translations";
+
+const i18n = t();
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -16,6 +19,8 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const l = i18n.auth.login;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -30,7 +35,7 @@ function LoginForm() {
     });
 
     if (result?.error) {
-      setError("Invalid email or password");
+      setError(l.invalidCredentials);
       setLoading(false);
     } else if (result?.url) {
       window.location.href = result.url;
@@ -39,32 +44,32 @@ function LoginForm() {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
+      <h1 className="text-2xl font-bold text-gray-900">{l.title}</h1>
       <p className="mt-2 text-sm text-gray-600">
-        Sign in to manage your restaurant menu
+        {l.subtitle}
       </p>
 
       {verified && (
         <div className="mt-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
-          Email verified! You can now sign in.
+          {l.emailVerified}
         </div>
       )}
 
       {reset && (
         <div className="mt-4 rounded-lg bg-green-50 p-3 text-sm text-green-700">
-          Password updated successfully. Sign in with your new password.
+          {l.passwordReset}
         </div>
       )}
 
       {linkError === "invalid-link" && (
         <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          That verification link is invalid. Please request a new one.
+          {l.invalidLink}
         </div>
       )}
 
       {linkError === "link-expired" && (
         <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          That verification link has expired. Please register again.
+          {l.linkExpired}
         </div>
       )}
 
@@ -90,12 +95,12 @@ function LoginForm() {
             fill="#EA4335"
           />
         </svg>
-        Continue with Google
+        {l.continueGoogle}
       </button>
 
       <div className="my-6 flex items-center gap-4">
         <div className="h-px flex-1 bg-gray-200" />
-        <span className="text-xs text-gray-500">or</span>
+        <span className="text-xs text-gray-500">{l.or}</span>
         <div className="h-px flex-1 bg-gray-200" />
       </div>
 
@@ -111,7 +116,7 @@ function LoginForm() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email
+            {l.email}
           </label>
           <input
             id="email"
@@ -120,7 +125,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900"
-            placeholder="you@restaurant.com"
+            placeholder={l.emailPlaceholder}
           />
         </div>
 
@@ -130,13 +135,13 @@ function LoginForm() {
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              {l.password}
             </label>
             <Link
               href="/forgot-password"
               className="text-xs text-gray-500 hover:text-gray-900"
             >
-              Forgot password?
+              {l.forgotPassword}
             </Link>
           </div>
           <input
@@ -155,14 +160,14 @@ function LoginForm() {
           disabled={loading}
           className="w-full rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? l.signingIn : l.signIn}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-600">
-        Don&apos;t have an account?{" "}
+        {l.noAccount}{" "}
         <Link href="/register" className="font-medium text-gray-900 hover:underline">
-          Sign up
+          {l.signUp}
         </Link>
       </p>
     </div>

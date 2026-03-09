@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { t } from "@/lib/translations";
+import { getLocale } from "@/lib/locale";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "https://menudan.com";
+const i18n = t();
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: `Privacy Policy for ${APP_NAME}`,
+  title: i18n.privacy.title,
+  description: `${i18n.privacy.title} — ${APP_NAME}`,
 };
 
 export default function PrivacyPage() {
@@ -26,9 +29,9 @@ export default function PrivacyPage() {
       </header>
 
       <main className="mx-auto max-w-3xl px-6 py-12">
-        <h1 className="text-3xl font-bold text-gray-900">Privacy Policy</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{i18n.privacy.title}</h1>
         <p className="mt-2 text-sm text-gray-500">
-          Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          {i18n.privacy.lastUpdated} {new Date().toLocaleDateString(getLocale() === "ru" ? "ru-RU" : "en-US", { year: "numeric", month: "long", day: "numeric" })}
         </p>
 
         <div className="mt-10 space-y-8 text-sm leading-relaxed text-gray-700">

@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/lib/translations";
+
+const i18n = t();
 
 export function EmailVerificationBanner({ email }: { email: string }) {
   const [dismissed, setDismissed] = useState(false);
@@ -32,16 +35,16 @@ export function EmailVerificationBanner({ email }: { email: string }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <p className="text-sm text-amber-800">
-            Please verify your email address.{" "}
+            {i18n.dashboard.emailBanner.verify}{" "}
             {sent ? (
-              <span className="font-medium">Verification email sent!</span>
+              <span className="font-medium">{i18n.dashboard.emailBanner.sent}</span>
             ) : (
               <button
                 onClick={resend}
                 disabled={sending}
                 className="font-medium underline hover:no-underline disabled:opacity-50"
               >
-                {sending ? "Sending..." : "Resend verification email"}
+                {sending ? i18n.dashboard.emailBanner.sending : i18n.dashboard.emailBanner.resend}
               </button>
             )}
           </p>

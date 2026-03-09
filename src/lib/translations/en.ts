@@ -1,0 +1,529 @@
+const en = {
+  // ── Layout & Meta ──
+  meta: {
+    title: 'Digital Menus for Restaurants',
+    description: 'Create your restaurant menu online in minutes with AI-powered photo extraction and automatic translations. Get a QR code for table placement.',
+    ogAlt: 'Digital Menus for Restaurants',
+  },
+
+  // ── Landing Page ──
+  landing: {
+    nav: {
+      features: 'Features',
+      pricing: 'Pricing',
+      blog: 'Blog',
+      login: 'Log in',
+      getStarted: 'Get Started',
+    },
+    hero: {
+      badge: 'No credit card required',
+      titleLine1: 'Your restaurant menu,',
+      titleLine2: 'online in 5 minutes',
+      subtitle: 'Upload a photo of your paper menu — AI extracts items automatically. Choose a beautiful theme, get a QR code, and you\'re live. No technical skills required.',
+      cta: 'Create Your Menu — Free',
+      secondaryCta: 'See How It Works',
+      themesLabel: '10 themes — click any to preview live',
+      preview: 'Preview →',
+    },
+    howItWorks: {
+      label: 'Simple setup',
+      title: 'Three steps to go digital',
+      subtitle: 'From paper menu to QR code in minutes, not weeks.',
+    },
+    features: {
+      label: 'Features',
+      title: 'Everything you need to go paperless',
+      subtitle: 'Powerful features, simple interface. Built for restaurant owners.',
+      items: [
+        {
+          title: 'AI Menu Extraction',
+          description: 'Snap a photo of your paper menu — our AI reads it and creates your digital menu automatically.',
+        },
+        {
+          title: '10 Beautiful Themes',
+          description: 'Classic, Neon, Luxe, Nordic and more — pick a vibe that matches your restaurant perfectly. No design skills needed.',
+        },
+        {
+          title: 'Instant QR Codes',
+          description: 'Download print-ready QR codes in PNG or SVG. Place them on tables and your guests are one scan away.',
+        },
+        {
+          title: 'Multi-Language',
+          description: 'AI-powered translation into 16 languages. Your international guests read the menu in their own language.',
+        },
+        {
+          title: 'Real-Time Updates',
+          description: '86 an item or change prices instantly. Your digital menu updates in real time — no reprinting.',
+        },
+        {
+          title: 'Custom Domains',
+          description: 'Use your own domain like menu.yourrestaurant.com with automatic HTTPS. Looks professional, loads fast.',
+        },
+      ],
+    },
+    steps: [
+      { title: 'Upload your menu', description: 'Take a photo of your paper menu or enter items manually.' },
+      { title: 'Pick a theme', description: 'Choose from 10 beautiful designs that match your restaurant.' },
+      { title: 'Share your QR code', description: 'Download, print, and place on tables. You\'re live!' },
+    ],
+    pricing: {
+      label: 'Pricing',
+      title: 'Simple, transparent pricing',
+      subtitle: 'Start free. Upgrade when you need more.',
+      allPlansInclude: 'All plans include all 10 themes, QR code generation, multi-language support, and real-time updates.',
+      comingSoon: 'Coming Soon',
+      plans: [
+        {
+          name: 'Free',
+          price: '$0',
+          period: 'forever',
+          description: 'Perfect for trying it out',
+          features: ['1 menu', '20 item images', '1 AI upload', 'All 10 themes', 'QR code download'],
+          cta: 'Get Started Free',
+        },
+        {
+          name: 'Pro',
+          price: '$9',
+          period: '/month',
+          description: 'For growing restaurants',
+          features: ['5 menus', '200 item images', 'Unlimited AI uploads', 'Custom domain', 'No watermark'],
+          cta: 'Coming Soon',
+        },
+        {
+          name: 'Business',
+          price: '$19',
+          period: '/month',
+          description: 'For multi-menu establishments',
+          features: ['Unlimited menus', 'Unlimited images', 'Unlimited AI uploads', 'Custom domain', 'Priority support'],
+          cta: 'Coming Soon',
+        },
+      ],
+    },
+    cta: {
+      title: 'Ready to ditch the paper menu?',
+      subtitle: 'Join restaurants worldwide that use {appName} to create beautiful digital menus their guests love.',
+      button: 'Create Your Menu — Free',
+    },
+    footer: {
+      blog: 'Blog',
+      privacy: 'Privacy Policy',
+    },
+  },
+
+  // ── Auth ──
+  auth: {
+    login: {
+      title: 'Welcome back',
+      subtitle: 'Sign in to manage your restaurant menu',
+      emailVerified: 'Email verified! You can now sign in.',
+      passwordReset: 'Password updated successfully. Sign in with your new password.',
+      invalidLink: 'That verification link is invalid. Please request a new one.',
+      linkExpired: 'That verification link has expired. Please register again.',
+      continueGoogle: 'Continue with Google',
+      or: 'or',
+      email: 'Email',
+      emailPlaceholder: 'you@restaurant.com',
+      password: 'Password',
+      forgotPassword: 'Forgot password?',
+      signingIn: 'Signing in...',
+      signIn: 'Sign in',
+      noAccount: "Don't have an account?",
+      signUp: 'Sign up',
+      invalidCredentials: 'Invalid email or password',
+    },
+    register: {
+      title: 'Create your account',
+      subtitle: 'Get your restaurant menu online in minutes',
+      continueGoogle: 'Continue with Google',
+      or: 'or',
+      name: 'Your name',
+      namePlaceholder: 'John Smith',
+      email: 'Email',
+      emailPlaceholder: 'you@restaurant.com',
+      password: 'Password',
+      passwordPlaceholder: 'Min. 8 characters',
+      creating: 'Creating account...',
+      create: 'Create account',
+      privacyAgreement: 'By creating an account, you agree to our',
+      privacyPolicy: 'Privacy Policy',
+      hasAccount: 'Already have an account?',
+      signIn: 'Sign in',
+      signInFailed: 'Account created but sign-in failed. Please sign in manually.',
+      somethingWrong: 'Something went wrong',
+    },
+    forgotPassword: {
+      title: 'Forgot password?',
+      subtitle: "Enter your email address and we'll send you a link to reset your password.",
+      email: 'Email',
+      emailPlaceholder: 'you@restaurant.com',
+      sending: 'Sending...',
+      sendLink: 'Send reset link',
+      rememberPassword: 'Remember your password?',
+      signIn: 'Sign in',
+      checkEmail: 'Check your email',
+      checkEmailDesc: "If an account exists for",
+      checkEmailDesc2: "you'll receive a password reset link shortly.",
+      linkExpires: 'The link expires in 1 hour.',
+      backToSignIn: 'Back to sign in',
+      tooManyAttempts: 'Too many attempts. Please try again later.',
+      somethingWrong: 'Something went wrong. Please try again.',
+    },
+    resetPassword: {
+      title: 'Set new password',
+      subtitle: 'Choose a strong password for your account.',
+      newPassword: 'New password',
+      newPasswordPlaceholder: 'Min. 8 characters',
+      confirmPassword: 'Confirm password',
+      confirmPlaceholder: 'Repeat your password',
+      saving: 'Saving...',
+      save: 'Set new password',
+      invalidLink: 'Invalid link',
+      invalidLinkDesc: 'This password reset link is invalid or has expired.',
+      requestNewLink: 'Request a new link',
+      passwordsMismatch: 'Passwords do not match',
+      resetFailed: 'Failed to reset password',
+      somethingWrong: 'Something went wrong. Please try again.',
+    },
+    verifyEmail: {
+      title: 'Check your email',
+      sentTo: 'We sent a verification link to',
+      instructions: 'Click the link in the email to verify your account. The link expires in 24 hours.',
+      didntReceive: "Didn't receive it?",
+      checkSpam: 'Check your spam or junk folder',
+      checkEmail: 'Make sure you entered the right email',
+      goToSignIn: 'Go to sign in',
+    },
+  },
+
+  // ── Dashboard ──
+  dashboard: {
+    nav: {
+      menu: 'Menu',
+      qr: 'QR Codes',
+      upload: 'AI Upload',
+      languages: 'Languages',
+      settings: 'Settings',
+      billing: 'Billing',
+      preview: 'Preview',
+      previewMenu: 'Preview menu',
+      signOut: 'Sign out',
+      toggleNav: 'Toggle navigation',
+    },
+    emailBanner: {
+      verify: 'Please verify your email address.',
+      sent: 'Verification email sent!',
+      sending: 'Sending...',
+      resend: 'Resend verification email',
+    },
+  },
+
+  // ── Menu Builder ──
+  menuBuilder: {
+    title: 'Menu Builder',
+    saving: 'Saving...',
+    saved: 'Saved',
+    menuName: 'Menu name:',
+    addMenu: 'Add Menu',
+    deleteMenu: 'Delete menu',
+    deleteMenuConfirm: 'Delete this menu and all its categories/items?',
+    categoriesItems: 'Categories + Items',
+    addCategory: 'Add Category',
+    noCategories: 'No categories yet',
+    noCategoriesHint: 'Add a category like "Appetizers" or "Mains" to get started.',
+    noMenus: 'No menus yet',
+    noMenusHint: 'Click "Add Menu" to create your first menu.',
+    dragToReorder: 'Drag to reorder',
+  },
+
+  // ── Category Card ──
+  category: {
+    items: 'items',
+    addItem: '+ Add Item',
+    deleteCategory: 'Delete category',
+    noItems: 'No items yet. Click "+ Add Item" to add one.',
+  },
+
+  // ── Item Form Modal ──
+  itemForm: {
+    editItem: 'Edit Item',
+    addItem: 'Add Item',
+    image: 'Image',
+    name: 'Name',
+    required: '*',
+    namePlaceholder: 'e.g. Margherita Pizza',
+    description: 'Description',
+    descriptionPlaceholder: 'Fresh tomatoes, mozzarella, basil...',
+    charLimit: '/500',
+    prices: 'Prices',
+    price: 'Price',
+    optional: 'Optional',
+    default: 'default',
+    available: 'Available',
+    badges: 'Badges',
+    allergens: 'Allergens',
+    cancel: 'Cancel',
+    saving: 'Saving...',
+    updateItem: 'Update Item',
+    nameRequired: 'Name is required',
+    saveFailed: 'Save failed',
+    uploadFailed: 'Upload failed',
+  },
+
+  // ── Settings ──
+  settings: {
+    title: 'Settings',
+    saved: 'Saved',
+    saveChanges: 'Save Changes',
+    saving: 'Saving...',
+    restaurantInfo: 'Restaurant Info',
+    name: 'Name',
+    description: 'Description',
+    address: 'Address',
+    phone: 'Phone',
+    images: 'Images',
+    logo: 'Logo',
+    coverImage: 'Cover Image',
+    upload: '+ Upload',
+    theme: 'Theme',
+    themeDescription: 'Choose how your public menu looks to guests.',
+    accentColor: 'Accent Color',
+    accentColorDescription: 'Used for highlights and emphasis in your menu theme.',
+    defaultLanguage: 'Default Language',
+    defaultLanguageDescription: 'The language your menu content is written in. Manage translations in the Languages page.',
+    currencies: 'Currencies',
+    currenciesDescription: 'Enable currencies you accept. The default currency is pre-selected when adding new items.',
+    defaultCurrency: 'Default Currency',
+    publicMenuLink: 'Public Menu Link',
+    preview: 'Preview',
+    changeSlug: 'Change slug',
+    slugUpdated: 'Slug updated',
+    slugPlaceholder: 'your-restaurant',
+    checking: 'Checking...',
+    available: 'Available',
+    notAvailable: 'Not available',
+    suggestAI: 'Suggest alternatives with AI',
+    generating: 'Generating suggestions...',
+    saveSlug: 'Save Slug',
+    cancel: 'Cancel',
+    customDomain: 'Custom Domain',
+    customDomainUpgrade: 'Custom domains are available on Pro and Business plans.',
+    upgradePlan: 'Upgrade your plan',
+    domainPlaceholder: 'menu.myrestaurant.com',
+    save: 'Save',
+    verify: 'Verify',
+    verifying: 'Verifying...',
+    remove: 'Remove',
+    domainVerified: 'Domain verified and active',
+    dnsSetup: 'DNS Setup Required',
+    dnsInstructions: 'Add a CNAME record pointing',
+    dnsTo: 'to',
+    dnsPropagation: 'DNS changes can take up to 48 hours to propagate.',
+    dangerZone: 'Danger Zone',
+    dangerDescription: 'Permanently delete your account, restaurant, and all menu data. This action cannot be undone.',
+    deleteAccount: 'Delete Account',
+    deleteConfirmation: 'This will permanently delete your account, restaurant profile, all menus, items, images, translations, and analytics data.',
+    typeToConfirm: 'Type',
+    toConfirm: 'to confirm:',
+    deleteKeyword: 'DELETE',
+    deleting: 'Deleting...',
+    deleteEverything: 'Delete Everything',
+  },
+
+  // ── QR Code ──
+  qr: {
+    title: 'QR Code',
+    description: 'Print this QR code and place it on tables for guests to scan.',
+    scanToView: 'Scan to view menu',
+    menuUrl: 'Menu URL',
+    copy: 'Copy',
+    download: 'Download',
+    png: 'PNG (1024px)',
+    svg: 'SVG (Vector)',
+    tips: 'Tips',
+    tipsList: [
+      'Use PNG for printing on paper or stickers',
+      'Use SVG for professional printing at any size',
+      'Place QR codes on each table, at the entrance, or in the window',
+      'Test by scanning with your phone before printing',
+    ],
+  },
+
+  // ── Billing ──
+  billing: {
+    title: 'Billing',
+    description: 'Manage your subscription and plan.',
+    currentPlan: 'Current plan:',
+    menus: 'menus,',
+    images: 'images',
+    currentPlanBadge: 'Current Plan',
+    comingSoon: 'Coming Soon',
+    allPlansInclude: 'All plans include',
+    allPlansList: [
+      '4 beautiful menu themes',
+      'QR code generation (PNG + SVG)',
+      'Multi-language support with AI translation',
+      'Real-time menu updates',
+      'Mobile-optimized menu pages',
+      'OpenGraph meta tags for sharing',
+    ],
+    plans: {
+      free: {
+        name: 'Free',
+        price: '$0',
+        period: 'forever',
+        features: ['1 menu', '20 item images', '1 AI upload', 'All themes', 'QR code download', '"Powered by" watermark'],
+      },
+      pro: {
+        name: 'Pro',
+        price: '$9',
+        period: '/month',
+        features: ['5 menus', '200 item images', 'Unlimited AI uploads', 'All themes', 'Custom domain', 'No watermark'],
+      },
+      business: {
+        name: 'Business',
+        price: '$19',
+        period: '/month',
+        features: ['Unlimited menus', 'Unlimited images', 'Unlimited AI uploads', 'All themes', 'Custom domain', 'No watermark', 'Priority support'],
+      },
+    },
+  },
+
+  // ── Languages ──
+  languages: {
+    title: 'Languages',
+    description: 'Manage translations for your menu. Enable languages and auto-translate with AI.',
+    saved: 'Saved',
+    editTranslations: 'Edit Translations —',
+    noTranslations: 'No translations yet. Click "Translate" to auto-translate.',
+    ai: 'AI',
+    defaultLanguage: 'Default language',
+    defaultLanguageDesc: 'Your menu content is written in this language',
+    activeTranslations: 'Active Translations',
+    translations: 'translations',
+    edit: 'Edit',
+    translate: 'Translate',
+    translating: 'Translating...',
+    remove: 'Remove',
+    addLanguage: 'Add Language',
+    howItWorks: 'How it works',
+    howItWorksList: [
+      'Enable a language to make it available on your public menu',
+      'Click "Translate" to auto-translate all menu content using AI',
+      'Click "Edit" to review and manually adjust any translation',
+      "Manual edits are preserved — AI won't overwrite your changes",
+      'Re-translate anytime to pick up new menu items',
+    ],
+  },
+
+  // ── AI Upload ──
+  aiUpload: {
+    title: 'AI Menu Upload',
+    description: 'Upload a photo or PDF of your menu and our AI will extract all items automatically.',
+    limitReached: 'Free plan limit reached',
+    limitReachedDesc: "You've used your 1 free AI upload. Upgrade to Pro for unlimited uploads.",
+    clickToUpload: 'Click to upload a menu photo or PDF',
+    fileTypes: 'JPEG, PNG, WebP, or PDF up to 10MB',
+    tips: 'Tips for best results',
+    tipsList: [
+      'Take a clear, well-lit photo of the full menu',
+      'Avoid shadows and glare on the menu',
+      'Include all pages if the menu spans multiple pages',
+      'The AI works best with printed menus (handwritten may have lower accuracy)',
+    ],
+    analyzing: 'Analyzing your menu...',
+    analyzingTime: 'This usually takes 10-20 seconds',
+    currency: 'Currency:',
+    saveTo: 'Save to',
+    createNewMenu: 'Create new menu',
+    menuName: 'Menu name',
+    items: 'items',
+    remove: 'Remove',
+    addItem: '+ Add item',
+    saveToMenu: 'Save to Menu',
+    startOver: 'Start Over',
+    savingToMenu: 'Saving to menu...',
+    savedSuccess: 'Menu saved successfully!',
+    viewInBuilder: 'View in Menu Builder',
+    uploadAnother: 'Upload Another',
+  },
+
+  // ── Onboarding ──
+  onboarding: {
+    step1: {
+      title: 'Name your restaurant',
+      subtitle: 'This will be displayed on your menu page.',
+      placeholder: 'e.g. Le Petit Jardin',
+      error: 'Please enter your restaurant name',
+      continue: 'Continue',
+    },
+    step2: {
+      title: 'Choose your style',
+      subtitle: 'Pick a design theme for your menu page. You can change this later.',
+      back: 'Back',
+      continue: 'Continue',
+    },
+    step3: {
+      title: 'Got a paper menu?',
+      subtitle: 'Skip the manual work — upload a photo of your menu and our AI will extract all items automatically.',
+      benefits: [
+        'Snap a photo or upload a PDF of your existing menu',
+        'AI reads every item, price, and description in seconds',
+        "Review and edit before saving — you're always in control",
+      ],
+      settingUp: 'Setting up...',
+      uploadPhoto: 'Upload Menu Photo',
+      addManually: "I'll add items manually",
+      back: 'Back',
+    },
+  },
+
+  // ── Cookie Banner ──
+  cookie: {
+    message: 'We use a single cookie to keep you logged in. No tracking cookies.',
+    learnMore: 'Learn more',
+    gotIt: 'Got it',
+  },
+
+  // ── Menu Footer ──
+  menuFooter: {
+    poweredBy: 'Powered by',
+  },
+
+  // ── Blog ──
+  blog: {
+    title: 'Blog',
+    metaDescription: 'Tips, guides, and insights on digital menus, QR codes, restaurant marketing, menu design psychology, and AI technology for restaurant owners.',
+    heading: 'Restaurant Digital Menu Blog',
+    subtitle: 'Insights for Restaurant Owners',
+    description: 'Practical guides on digital menus, menu design, AI, and everything that helps your restaurant thrive.',
+  },
+
+  // ── Privacy ──
+  privacy: {
+    title: 'Privacy Policy',
+    lastUpdated: 'Last updated:',
+  },
+
+  // ── Common ──
+  common: {
+    cancel: 'Cancel',
+    save: 'Save',
+    delete: 'Delete',
+    edit: 'Edit',
+    close: 'Close',
+    loading: 'Loading...',
+    or: 'or',
+  },
+} as const;
+
+// Widen literal types so other locales can use different strings
+type DeepStringify<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly DeepStringify<U>[]
+    : T extends object
+      ? { readonly [K in keyof T]: DeepStringify<T[K]> }
+      : T;
+
+export type Translations = DeepStringify<typeof en>;
+export default en;
