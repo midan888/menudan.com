@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { t } from "@/lib/translations";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
+const i18n = t();
 
 export function BlogFooter() {
   return (
@@ -14,10 +16,10 @@ export function BlogFooter() {
           </p>
           <div className="flex items-center gap-4 text-sm text-gray-500">
             <Link href="/blog" className="hover:text-gray-700">
-              Blog
+              {i18n.landing.footer.blog}
             </Link>
             <Link href="/privacy" className="hover:text-gray-700">
-              Privacy Policy
+              {i18n.landing.footer.privacy}
             </Link>
             <span>
               &copy; {new Date().getFullYear()} {APP_NAME}

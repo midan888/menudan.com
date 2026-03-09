@@ -6,9 +6,13 @@ import { BlogHeader } from "../_components/BlogHeader";
 import { BlogFooter } from "../_components/BlogFooter";
 import { ArticleContent } from "../_components/ArticleContent";
 import { RelatedArticles } from "../_components/RelatedArticles";
+import { t } from "@/lib/translations";
+import { getLocale } from "@/lib/locale";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
+const i18n = t();
+const locale = getLocale();
 
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
@@ -121,7 +125,7 @@ export default async function BlogPostPage({
             {/* Breadcrumb */}
             <nav className="mb-8 flex items-center gap-2 text-sm text-gray-400">
               <Link href="/blog" className="hover:text-indigo-600 transition-colors">
-                Blog
+                {i18n.blog.title}
               </Link>
               <span>/</span>
               <span className="text-gray-600 truncate">{article.title}</span>
@@ -140,14 +144,14 @@ export default async function BlogPostPage({
               <span>{article.author}</span>
               <span>&middot;</span>
               <time dateTime={article.publishedAt}>
-                {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                {new Date(article.publishedAt).toLocaleDateString(locale, {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
                 })}
               </time>
               <span>&middot;</span>
-              <span>{article.readingTimeMinutes} min read</span>
+              <span>{article.readingTimeMinutes} {i18n.blog.minRead}</span>
             </div>
 
             {/* Content */}
@@ -170,17 +174,16 @@ export default async function BlogPostPage({
               </div>
               <div className="relative">
                 <h2 className="text-2xl font-bold text-white sm:text-3xl">
-                  Ready to create your digital menu?
+                  {i18n.blog.ctaTitle}
                 </h2>
                 <p className="mx-auto mt-3 max-w-xl text-base text-indigo-100">
-                  Upload a photo of your menu, pick a theme, and get a QR code
-                  — all in under 5 minutes. Free to start.
+                  {i18n.blog.ctaSubtitle}
                 </p>
                 <Link
                   href="/register"
                   className="mt-6 inline-block rounded-lg bg-white px-8 py-3 text-base font-medium text-indigo-700 shadow-lg transition-all hover:bg-indigo-50 hover:shadow-xl"
                 >
-                  Get Started Free
+                  {i18n.blog.ctaButton}
                 </Link>
               </div>
             </div>

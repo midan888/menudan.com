@@ -1,3 +1,5 @@
+import { isRussian } from "@/lib/locale";
+
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
 
 export interface ArticleSection {
@@ -23,7 +25,7 @@ export interface BlogArticle {
   sections: ArticleSection[];
 }
 
-export const articles: BlogArticle[] = [
+const articlesEn: BlogArticle[] = [
   // ──────────────────────────────────────────────────────────────
   // 1. AI Restaurant Menu Management
   // ──────────────────────────────────────────────────────────────
@@ -1722,3 +1724,7 @@ export const articles: BlogArticle[] = [
     ],
   },
 ];
+
+import { articlesRu } from "./articles.ru";
+
+export const articles: BlogArticle[] = isRussian() ? articlesRu : articlesEn;

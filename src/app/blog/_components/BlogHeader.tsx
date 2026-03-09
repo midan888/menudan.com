@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { t } from "@/lib/translations";
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
+const i18n = t();
 
 export function BlogHeader() {
   return (
@@ -16,31 +18,31 @@ export function BlogHeader() {
             href="/blog"
             className="text-sm font-medium text-indigo-600"
           >
-            Blog
+            {i18n.blog.title}
           </Link>
           <Link
             href="/#features"
             className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
           >
-            Features
+            {i18n.landing.nav.features}
           </Link>
           <Link
             href="/#pricing"
             className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
           >
-            Pricing
+            {i18n.landing.nav.pricing}
           </Link>
           <Link
             href="/login"
             className="text-sm text-gray-600 transition-colors hover:text-indigo-600"
           >
-            Log in
+            {i18n.landing.nav.login}
           </Link>
           <Link
             href="/register"
             className="rounded-lg bg-linear-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-medium text-white shadow-md shadow-indigo-500/25 transition-all hover:shadow-lg hover:shadow-indigo-500/30 hover:brightness-110"
           >
-            Get Started
+            {i18n.landing.nav.getStarted}
           </Link>
         </nav>
         <div className="flex items-center gap-3 sm:hidden">
@@ -48,13 +50,13 @@ export function BlogHeader() {
             href="/login"
             className="text-sm text-gray-600 hover:text-indigo-600"
           >
-            Log in
+            {i18n.landing.nav.login}
           </Link>
           <Link
             href="/register"
             className="rounded-lg bg-linear-to-r from-indigo-600 to-violet-600 px-3 py-2 text-sm font-medium text-white shadow-md shadow-indigo-500/25"
           >
-            Get Started
+            {i18n.landing.nav.getStarted}
           </Link>
         </div>
       </div>

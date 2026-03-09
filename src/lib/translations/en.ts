@@ -496,6 +496,12 @@ const en = {
     heading: 'Restaurant Digital Menu Blog',
     subtitle: 'Insights for Restaurant Owners',
     description: 'Practical guides on digital menus, menu design, AI, and everything that helps your restaurant thrive.',
+    minRead: 'min read',
+    continueReading: 'Continue Reading',
+    ctaTitle: 'Ready to create your digital menu?',
+    ctaSubtitle: 'Upload a photo of your menu, pick a theme, and get a QR code — all in under 5 minutes. Free to start.',
+    ctaButton: 'Get Started Free',
+    breadcrumbHome: 'Home',
   },
 
   // ── Privacy ──

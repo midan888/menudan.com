@@ -1,5 +1,10 @@
 import Link from "next/link";
 import type { BlogArticle } from "../_data/articles";
+import { t } from "@/lib/translations";
+import { getLocale } from "@/lib/locale";
+
+const i18n = t();
+const locale = getLocale();
 
 const categoryColors: Record<string, string> = {
   Technology: "bg-indigo-50 text-indigo-600",
@@ -30,14 +35,14 @@ export function BlogCard({ article }: { article: BlogArticle }) {
       </p>
       <div className="mt-auto flex items-center gap-3 pt-4 text-xs text-gray-400">
         <time dateTime={article.publishedAt}>
-          {new Date(article.publishedAt).toLocaleDateString("en-US", {
+          {new Date(article.publishedAt).toLocaleDateString(locale, {
             month: "short",
             day: "numeric",
             year: "numeric",
           })}
         </time>
         <span>&middot;</span>
-        <span>{article.readingTimeMinutes} min read</span>
+        <span>{article.readingTimeMinutes} {i18n.blog.minRead}</span>
       </div>
     </Link>
   );
