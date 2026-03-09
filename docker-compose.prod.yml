@@ -22,6 +22,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    ports:
+      - "54329:5432"
     restart: unless-stopped
 
   caddy:
