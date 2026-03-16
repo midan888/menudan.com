@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${APP_NAME} — ${i18n.meta.title}`,
     description: i18n.meta.description,
-    images: ["/og-image.png"],
+    images: ["/opengraph-image"],
   },
   icons: {
     icon: "/favicon.ico",

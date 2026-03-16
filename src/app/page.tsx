@@ -47,6 +47,32 @@ const plansMeta = [
   { highlighted: false, comingSoon: true, href: "" },
 ];
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: APP_NAME,
+      url: APP_URL,
+      logo: `${APP_URL}/apple-touch-icon.png`,
+      description: i18n.meta.description,
+    },
+    {
+      "@type": "WebApplication",
+      name: APP_NAME,
+      url: APP_URL,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description: i18n.landing.hero.subtitle,
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+  ],
+};
+
 export default function HomePage() {
   const nav = i18n.landing.nav;
   const hero = i18n.landing.hero;
@@ -58,6 +84,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-indigo-100/50 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">

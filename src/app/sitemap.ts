@@ -2,20 +2,27 @@ import type { MetadataRoute } from "next";
 import { db } from "@/lib/db";
 import { tenants } from "@/lib/db/schema";
 import { articles } from "./blog/_data/articles";
+import { VALID_THEMES } from "@/lib/demo-data";
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-  // Static pages — use a fixed date; update when content actually changes
-  const SITE_UPDATED = new Date("2025-01-01");
+  // Static pages — update this date when landing/auth page content changes
+  const SITE_UPDATED = new Date("2026-03-16");
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: SITE_UPDATED,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: SITE_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.4,
     },
     {
       url: `${baseUrl}/login`,
@@ -29,30 +36,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
-    {
-      url: `${baseUrl}/demo/classic`,
+    ...VALID_THEMES.map((theme) => ({
+      url: `${baseUrl}/demo/${theme}`,
       lastModified: SITE_UPDATED,
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/demo/modern`,
-      lastModified: SITE_UPDATED,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/demo/dark`,
-      lastModified: SITE_UPDATED,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/demo/bistro`,
-      lastModified: SITE_UPDATED,
-      changeFrequency: "monthly",
-      priority: 0.6,
-    },
+    })),
   ];
 
   // Blog pages
