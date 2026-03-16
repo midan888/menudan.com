@@ -14,7 +14,7 @@ const sizes = {
   lg: { icon: 32, text: "text-xl" },
 };
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan.com";
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "menudan";
 
 export function Logo({ href = "/", size = "md", showText = true, className = "" }: LogoProps) {
   const s = sizes[size];
