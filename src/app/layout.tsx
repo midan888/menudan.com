@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/ui/Toaster";
 import { CookieBanner } from "@/components/ui/CookieBanner";
+import { GoogleAnalytics } from "@/components/ui/GoogleAnalytics";
 import { getLocale } from "@/lib/locale";
 import { t } from "@/lib/translations";
 import "./globals.css";
@@ -63,6 +64,7 @@ export default function RootLayout({
   return (
     <html lang={getLocale()}>
       <body className="antialiased">
+        <GoogleAnalytics />
         <ToastProvider>
           {children}
           <CookieBanner />

@@ -20,19 +20,38 @@ export default function PrivacyPage() {
       <PublicHeader />
 
       <main className="mx-auto max-w-3xl px-6 py-12">
-        <h1 className="text-3xl font-bold text-gray-900">{i18n.privacy.title}</h1>
+        <h1 className="text-3xl font-bold text-gray-900">
+          {i18n.privacy.title}
+        </h1>
         <p className="mt-2 text-sm text-gray-500">
-          {i18n.privacy.lastUpdated} {new Date().toLocaleDateString(getLocale() === "ru" ? "ru-RU" : "en-US", { year: "numeric", month: "long", day: "numeric" })}
+          {i18n.privacy.lastUpdated}{" "}
+          {new Date().toLocaleDateString(
+            getLocale() === "ru" ? "ru-RU" : "en-US",
+            { year: "numeric", month: "long", day: "numeric" },
+          )}
         </p>
 
         <div className="mt-10 space-y-8 text-sm leading-relaxed text-gray-700">
           <section>
-            <h2 className="text-lg font-semibold text-gray-900">1. What We Collect</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              1. What We Collect
+            </h2>
             <p className="mt-3">When you create an account, we collect:</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li><strong>Account info</strong> — your name, email address, and password (stored as a secure hash).</li>
-              <li><strong>OAuth data</strong> — if you sign in with Google, we receive your name, email, and profile picture from Google. We do not access any other Google data.</li>
-              <li><strong>Restaurant data</strong> — your restaurant name, description, address, phone number, menus, categories, items, and uploaded images.</li>
+              <li>
+                <strong>Account info</strong> — your name, email address, and
+                password (stored as a secure hash).
+              </li>
+              <li>
+                <strong>OAuth data</strong> — if you sign in with Google, we
+                receive your name, email, and profile picture from Google. We do
+                not access any other Google data.
+              </li>
+              <li>
+                <strong>Restaurant data</strong> — your restaurant name,
+                description, address, phone number, menus, categories, items,
+                and uploaded images.
+              </li>
             </ul>
             <p className="mt-3">When customers view a menu, we log:</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -41,73 +60,215 @@ export default function PrivacyPage() {
               <li>Selected language</li>
               <li>HTTP referrer</li>
             </ul>
-            <p className="mt-2">We do <strong>not</strong> store IP addresses, and we do <strong>not</strong> use any tracking cookies or third-party analytics.</p>
+            <p className="mt-2">
+              We do <strong>not</strong> store IP addresses.
+            </p>
+            <p className="mt-2">
+              If you accept analytics cookies, we also collect anonymous usage
+              data via Google Analytics (see Section 3).
+            </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-gray-900">2. How We Use Your Data</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              2. How We Use Your Data
+            </h2>
             <ul className="mt-3 list-disc space-y-1 pl-5">
               <li>To provide and operate your digital menu</li>
               <li>To authenticate you and keep your session active</li>
               <li>To process payments for paid plans</li>
-              <li>To send transactional emails (verification, password reset)</li>
+              <li>
+                To send transactional emails (verification, password reset)
+              </li>
               <li>To generate anonymous menu view statistics</li>
-              <li>To extract menu data from photos and generate translations using AI</li>
+              <li>
+                To extract menu data from photos and generate translations using
+                AI
+              </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-gray-900">3. Cookies</h2>
-            <p className="mt-3">
-              We use a <strong>single cookie</strong> (<code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">authjs.session-token</code>) to keep you logged in. This cookie is strictly necessary for the service to function and does not track you.
+            <p className="mt-3">We use the following cookies:</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>
+                <strong>Session cookie</strong> (
+                <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                  authjs.session-token
+                </code>
+                ) — strictly necessary to keep you logged in. This cookie does
+                not track you.
+              </li>
+              <li>
+                <strong>Cookie consent</strong> (
+                <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                  cookie-consent
+                </code>
+                ) — stored in localStorage to remember your cookie preference.
+              </li>
+            </ul>
+
+            <h3 className="mt-4 text-base font-semibold text-gray-900">
+              Analytics Cookies (optional)
+            </h3>
+            <p className="mt-2">
+              If you click <strong>&quot;Accept&quot;</strong> on our cookie
+              banner, we load <strong>Google Analytics</strong> (measurement ID:{" "}
+              <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                G-H4GSRG292N
+              </code>
+              ), which sets its own cookies (e.g.{" "}
+              <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                _ga
+              </code>
+              ,{" "}
+              <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs">
+                _ga_*
+              </code>
+              ) to collect anonymous usage statistics such as page views,
+              session duration, and general geographic region. IP addresses are
+              anonymized.
             </p>
-            <p className="mt-2">We do not use any advertising, analytics, or third-party tracking cookies.</p>
+            <p className="mt-2">
+              If you click <strong>&quot;Decline&quot;</strong>, no analytics
+              cookies are set and Google Analytics is not loaded. You can change
+              your preference at any time by clearing your browser&apos;s local
+              storage for this site.
+            </p>
+            <p className="mt-2">
+              We do not use any advertising or retargeting cookies.
+            </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-gray-900">4. Third-Party Services</h2>
-            <p className="mt-3">We use the following services to operate {APP_NAME}:</p>
+            <h2 className="text-lg font-semibold text-gray-900">
+              4. Third-Party Services
+            </h2>
+            <p className="mt-3">
+              We use the following services to operate {APP_NAME}:
+            </p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li><strong>Google OAuth</strong> — for sign-in (optional). Subject to <a href="https://policies.google.com/privacy" className="text-indigo-600 underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a>.</li>
-              <li><strong>Stripe</strong> — for payment processing. Subject to <a href="https://stripe.com/privacy" className="text-indigo-600 underline" target="_blank" rel="noopener noreferrer">Stripe&apos;s Privacy Policy</a>.</li>
-              <li><strong>Amazon Web Services</strong> — for image storage.</li>
-              <li><strong>Anthropic</strong> — for AI-powered menu extraction and translations. Menu data sent for processing is not stored by Anthropic.</li>
-              <li><strong>Resend</strong> — for sending transactional emails.</li>
+              <li>
+                <strong>Google Analytics</strong> — for anonymous website usage
+                statistics (only when you consent). Subject to{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  className="text-indigo-600 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google&apos;s Privacy Policy
+                </a>
+                . You can opt out using the cookie banner or install the{" "}
+                <a
+                  href="https://tools.google.com/dlpage/gaoptout"
+                  className="text-indigo-600 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Analytics Opt-out Browser Add-on
+                </a>
+                .
+              </li>
+              <li>
+                <strong>Google OAuth</strong> — for sign-in (optional). Subject
+                to{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  className="text-indigo-600 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google&apos;s Privacy Policy
+                </a>
+                .
+              </li>
+              <li>
+                <strong>Stripe</strong> — for payment processing. Subject to{" "}
+                <a
+                  href="https://stripe.com/privacy"
+                  className="text-indigo-600 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Stripe&apos;s Privacy Policy
+                </a>
+                .
+              </li>
+              <li>
+                <strong>Amazon Web Services</strong> — for image storage.
+              </li>
+              <li>
+                <strong>Anthropic</strong> — for AI-powered menu extraction and
+                translations. Menu data sent for processing is not stored by
+                Anthropic.
+              </li>
+              <li>
+                <strong>Resend</strong> — for sending transactional emails.
+              </li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-gray-900">5. Data Retention</h2>
+            <h2 className="text-lg font-semibold text-gray-900">
+              5. Data Retention
+            </h2>
             <p className="mt-3">
-              We retain your data for as long as your account is active. When you delete your account, all your data — including your restaurant profile, menus, images, translations, and analytics — is permanently deleted.
+              We retain your data for as long as your account is active. When
+              you delete your account, all your data — including your restaurant
+              profile, menus, images, translations, and analytics — is
+              permanently deleted.
             </p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-gray-900">6. Your Rights</h2>
-            <p className="mt-3">Under GDPR and similar regulations, you have the right to:</p>
+            <h2 className="text-lg font-semibold text-gray-900">
+              6. Your Rights
+            </h2>
+            <p className="mt-3">
+              Under GDPR and similar regulations, you have the right to:
+            </p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li><strong>Access</strong> — request a copy of your personal data.</li>
-              <li><strong>Rectification</strong> — update or correct your data via your account settings.</li>
-              <li><strong>Erasure</strong> — delete your account and all associated data from the Settings page.</li>
-              <li><strong>Portability</strong> — request your data in a machine-readable format.</li>
+              <li>
+                <strong>Access</strong> — request a copy of your personal data.
+              </li>
+              <li>
+                <strong>Rectification</strong> — update or correct your data via
+                your account settings.
+              </li>
+              <li>
+                <strong>Erasure</strong> — delete your account and all
+                associated data from the Settings page.
+              </li>
+              <li>
+                <strong>Portability</strong> — request your data in a
+                machine-readable format.
+              </li>
             </ul>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-gray-900">7. Security</h2>
             <p className="mt-3">
-              Passwords are hashed with bcrypt. All connections are encrypted with HTTPS. We follow industry best practices to protect your data.
+              Passwords are hashed with bcrypt. All connections are encrypted
+              with HTTPS. We follow industry best practices to protect your
+              data.
             </p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-gray-900">8. Contact</h2>
             <p className="mt-3">
-              If you have questions about this privacy policy or want to exercise your data rights, contact us at{" "}
-              <a href={`mailto:support@${new URL(APP_URL).hostname}`} className="text-indigo-600 underline">
+              If you have questions about this privacy policy or want to
+              exercise your data rights, contact us at{" "}
+              <a
+                href={`mailto:support@${new URL(APP_URL).hostname}`}
+                className="text-indigo-600 underline"
+              >
                 support@{new URL(APP_URL).hostname}
-              </a>.
+              </a>
+              .
             </p>
           </section>
         </div>
@@ -118,15 +279,33 @@ export default function PrivacyPage() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Logo href="/" size="sm" />
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-500">
-              <Link href="/features" className="hover:text-gray-700">{i18n.landing.nav.features}</Link>
-              <Link href="/pricing" className="hover:text-gray-700">{i18n.landing.nav.pricing}</Link>
-              <Link href="/themes" className="hover:text-gray-700">{i18n.landing.footer.themes}</Link>
-              <Link href="/blog" className="hover:text-gray-700">{i18n.landing.footer.blog}</Link>
-              <Link href="/about" className="hover:text-gray-700">{i18n.landing.footer.about}</Link>
-              <Link href="/contact" className="hover:text-gray-700">{i18n.landing.footer.contact}</Link>
-              <Link href="/privacy" className="hover:text-gray-700">{i18n.landing.footer.privacy}</Link>
-              <Link href="/terms" className="hover:text-gray-700">{i18n.landing.footer.terms}</Link>
-              <span>&copy; {new Date().getFullYear()} {APP_NAME}</span>
+              <Link href="/features" className="hover:text-gray-700">
+                {i18n.landing.nav.features}
+              </Link>
+              <Link href="/pricing" className="hover:text-gray-700">
+                {i18n.landing.nav.pricing}
+              </Link>
+              <Link href="/themes" className="hover:text-gray-700">
+                {i18n.landing.footer.themes}
+              </Link>
+              <Link href="/blog" className="hover:text-gray-700">
+                {i18n.landing.footer.blog}
+              </Link>
+              <Link href="/about" className="hover:text-gray-700">
+                {i18n.landing.footer.about}
+              </Link>
+              <Link href="/contact" className="hover:text-gray-700">
+                {i18n.landing.footer.contact}
+              </Link>
+              <Link href="/privacy" className="hover:text-gray-700">
+                {i18n.landing.footer.privacy}
+              </Link>
+              <Link href="/terms" className="hover:text-gray-700">
+                {i18n.landing.footer.terms}
+              </Link>
+              <span>
+                &copy; {new Date().getFullYear()} {APP_NAME}
+              </span>
             </div>
           </div>
         </div>
