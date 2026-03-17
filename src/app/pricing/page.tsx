@@ -23,8 +23,8 @@ export const metadata: Metadata = {
 };
 
 const plansMeta = [
-  { highlighted: false, comingSoon: false, href: "/register" },
-  { highlighted: true, comingSoon: true, href: "" },
+  { highlighted: true, comingSoon: false, href: "/register" },
+  { highlighted: false, comingSoon: true, href: "" },
   { highlighted: false, comingSoon: true, href: "" },
 ];
 
